@@ -1,0 +1,19 @@
+{
+  "name": "itkitchen-react-native-ui-lib",
+  "version": "1.0.0",
+  "description": "itkitchen react-native ui lib",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blnaxblachbl/itkitchen-react-native-ui-lib.git"
+  },
+  "author": "Tit Hardwood <tit@itkitchen.su> (https://itkitchen.su)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blnaxblachbl/itkitchen-react-native-ui-lib/issues"
+  },
+  "homepage": "https://github.com/blnaxblachbl/itkitchen-react-native-ui-lib#readme"
+}
