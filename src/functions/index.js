@@ -6,7 +6,7 @@ import {
 
 import { normalize } from './normalize'
 
-export {
+export default {
     numberRegexp,
     wordsFromUpperCase,
     emailValid,
