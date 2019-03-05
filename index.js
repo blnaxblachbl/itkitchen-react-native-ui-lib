@@ -1,11 +1,13 @@
 import {
     numberRegexp,
     wordsFromUpperCase,
-    emailValid
+    emailValid,
+    normalize
 } from './src'
 
 module.exports = {
     numberRegexp,
     wordsFromUpperCase,
-    emailValid
+    emailValid,
+    normalize
 }

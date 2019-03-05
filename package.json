@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/blnaxblachbl/itkitchen-react-native-ui-lib/issues"
   },
-  "homepage": "https://github.com/blnaxblachbl/itkitchen-react-native-ui-lib#readme"
+  "homepage": "https://github.com/blnaxblachbl/itkitchen-react-native-ui-lib#readme",
+  "dependencies": {
+    "react-native": "^0.58.6"
+  }
 }

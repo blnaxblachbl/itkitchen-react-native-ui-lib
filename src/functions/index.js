@@ -4,8 +4,13 @@ import {
     emailValid
 } from './regexes'
 
+import {
+    normalize
+} from './normalize'
+
 export {
     numberRegexp,
     wordsFromUpperCase,
-    emailValid
+    emailValid,
+    normalize
 }

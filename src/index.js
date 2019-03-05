@@ -1,11 +1,13 @@
 import {
     numberRegexp,
     wordsFromUpperCase,
-    emailValid
-} from './functions/regexes'
+    emailValid,
+    normalize
+} from './functions'
 
 export {
     numberRegexp,
     wordsFromUpperCase,
-    emailValid
+    emailValid,
+    normalize
 }
