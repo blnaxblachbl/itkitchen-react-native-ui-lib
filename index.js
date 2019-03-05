@@ -1,13 +1,1 @@
-import {
-    numberRegexp,
-    wordsFromUpperCase,
-    emailValid,
-    normalize
-} from './src'
-
-export default {
-    numberRegexp,
-    wordsFromUpperCase,
-    emailValid,
-    normalize
-}
+export { default as Functions } from './src/functions'
