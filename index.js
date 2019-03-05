@@ -5,7 +5,7 @@ import {
     normalize
 } from './src'
 
-module.exports = {
+export default {
     numberRegexp,
     wordsFromUpperCase,
     emailValid,
