@@ -12,8 +12,8 @@ import {
     SafeAreaView,
     StyleSheet
 } from 'react-native'
-import Item from './Item'
-import ItemModal from './ItemModal'
+import Item from './item'
+import ItemModal from './modal'
 
 const { width, height } = Dimensions.get("window")
 
