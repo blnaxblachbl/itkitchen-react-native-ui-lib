@@ -134,10 +134,9 @@ const styles = StyleSheet.create({
 
 ### UI
 
-- **_Switch_** - is UI component: 
-
-##Props
- Name | Description | Default | Type
+- **_Switch_** - is UI component:
+## *Props*
+Name | Description | Default | Type
 ------|-------------|----------|-----------
 activeOpacity | opacity level on press | 0.6 | from 0 to 1
 initPosition | initial position | false | bool
