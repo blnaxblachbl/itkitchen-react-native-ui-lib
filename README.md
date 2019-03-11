@@ -193,3 +193,80 @@ disabledText | text of switch when it is off | 'Off' | string
 enabledBackgroundColor | switch background color when it is on | '#ccc' | string
 disabledBackgroundColor | switch background color when it is off | '#ccc' | string
 onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
+
+- **_ListModal_** - is UI component of list with item fool screen opening animation.
+
+```javascript
+import {
+    Platform,
+    StyleSheet,
+    Text,
+    View,
+    ScrollView,
+    Dimensions,
+    ImageBackground,
+    TouchableOpacity,
+    Image,
+    Animated,
+    TextInput
+} from 'react-native';
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+
+const { width, height } = Dimensions.get("window")
+
+const link = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzzyZm5CZ0w1XbzT7T08yGgFNPOXBD5ZNxswRNM3XXsrb0-OUW"
+const testText = "Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. "
+
+export default class App extends Component {
+
+    state = {
+        orders: [link, link, link, link, link, link, link, link, link, link, link, link, link, link, link],
+    }
+
+    renderItem = ({ item, index }, state) => {
+        return (
+            <ScrollView
+                style={{
+                    width: "100%",
+                    height: "100%",
+                    backgroundColor: "#ffffff"
+                }}
+                showsHorizontalScrollIndicator={state}
+                contentContainerStyle={{ alignItems: "center" }}
+            >
+                {state && (
+                    <TouchableOpacity onPress={() => { this.list.modalClose() }} style={{ position: "absolute", top: 10, right: 10, zIndex: 999 }} >
+                        <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: "red" }} />
+                    </TouchableOpacity>
+                )}
+                <Image source={{ uri: item }} style={{ width: "100%", height: 250 }} resizeMode="cover" />
+                <Text style={{ color: "#000000", fontSize: 16, paddingHorizontal: 10 }}>{testText}</Text>
+            </ScrollView>
+        )
+    }
+    
+    render() {
+        return (
+            <View style={styles.container}>
+                <UI.ListModal
+                    onRef={ref => this.list = ref}
+                    data={this.state.orders}
+                    numColumns={2}
+                    listStyle={{ flex: 1, width: width }}
+                    listContainerStyle={{ alignItems: "center", paddingBottom: 15 }}
+                    itemContainerStyle={{
+                        width: (width / 2) - 15,
+                        height: 250,
+                        marginHorizontal: 5,
+                        marginTop: 15,
+                        borderRadius: 5,
+                        overflow: 'hidden'
+                    }}
+                    renderItem={this.renderItem}
+                />
+            </View>
+        );
+    }
+
+}
+```
