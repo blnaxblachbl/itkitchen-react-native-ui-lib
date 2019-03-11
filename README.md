@@ -27,7 +27,7 @@ import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 
-...
+//...
 
 render() {
         return (
@@ -46,3 +46,31 @@ const styles = StyleSheet.create({
     },
 });
 ```
+
+- wordsFromUpperCase - is a regex function that replace words first lower case character to upper.
+
+```javascript
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+
+//...
+
+render() {
+        return (
+            <View style={styles.container}>
+                <Text style={{ fontSize: 14, color: "#000000" }}>{"some text without upper case"}</Text>
+                <Text style={{ fontSize: 14, color: "#000000" }}>{Functions.wordsFromUpperCase("some text without upper case")}</Text>
+            </View>
+        );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+});
+```
+
+![Functions.wordsFromUpperCase("some text without upper case")](./images/wordsFromUpperCase.jpg)
