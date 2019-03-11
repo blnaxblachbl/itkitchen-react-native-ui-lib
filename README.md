@@ -270,3 +270,21 @@ export default class App extends Component {
 
 }
 ```
+
+<img width="35%" src="./gifs/listmodal.gif"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+activeOpacity | opacity level on press | 0.6 | from 0 to 1
+initPosition | initial position | false | bool
+textStyle | switch text style | undefined | style
+containderStyle | switch container style | undefined | style
+circleStyle | switch circle style | undefined | style
+enabledCircleColor | color for circle of switch when it is on | '#4DC861' | string
+disabledCircleColor | color for circle of switch when it is off | 'red' | string
+enabledText | text of switch when it is on | 'On' | string
+disabledText | text of switch when it is off | 'Off' | string
+enabledBackgroundColor | switch background color when it is on | '#ccc' | string
+disabledBackgroundColor | switch background color when it is off | '#ccc' | string
+onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
