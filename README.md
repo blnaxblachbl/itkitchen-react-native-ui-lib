@@ -346,7 +346,6 @@ export default class App extends Component {
                 data={this.state.orders}
                 renderHeader={this.renderHeader}
                 renderItem={this.renderItem}
-                childrenFirst={true}
                 headerMinHeight={55}
                 numColumns={2}
                 headerMaxHeight={200}
@@ -363,6 +362,62 @@ export default class App extends Component {
     }
 
 }
+```
+
+You can user it like flat list - 
+```javascript
+    render() {
+        return (
+            <UI.AnimatedHeaderScreen
+                data={this.state.orders}
+                renderHeader={this.renderHeader}
+                renderItem={this.renderItem}
+                headerMinHeight={55}
+                numColumns={2}
+                headerMaxHeight={200}
+                headerComponentsMinOpacity={1}
+                headerBackgroundColor="#0366d6"
+                headerContainertStyle={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: width / 2,
+                    height: 150
+                }}
+            />
+        );
+    }
+```
+
+Or like some content conyainer - 
+
+```javascript
+    render() {
+        return (
+            <UI.AnimatedHeaderScreen
+                data={this.state.orders}
+                renderHeader={this.renderHeader}
+                renderItem={this.renderItem}
+                childrenFirst={true}
+                headerMinHeight={55}
+                numColumns={2}
+                headerMaxHeight={200}
+                headerComponentsMinOpacity={1}
+                headerBackgroundColor="#0366d6"
+                headerContainertStyle={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: width / 2,
+                    height: 150
+                }}
+            >
+                {
+                    this.state.orders.map((item, index)=>{
+                        return this.renderItem({item, index})
+                    })
+                }
+            </UI.AnimatedHeaderScreen>
+        );
+    }
 ```
 
 <img width="35%" src="./gifs/header.gif"/>
