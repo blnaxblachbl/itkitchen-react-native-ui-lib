@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
 ### UI
 
 - **_Switch_** - is UI component: 
+
 ##Props
 Name | Description | Default | Type
 ------|-------------|----------|-----------
