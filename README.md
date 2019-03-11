@@ -20,3 +20,29 @@ To use you can import two libs - Functions a UI:
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 ```
+
+### Funcions
+- normalize - is a function that normalizes the font size of the text relative to the screen size.
+
+```javascript
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+
+...
+
+render() {
+        return (
+            <View style={styles.container}>
+                <Text style={{ fontSize: Functions.normalize(14), color: "#000000", marginBottom: 15 }}>Text</Text>
+            </View>
+        );
+}
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+});
+```
