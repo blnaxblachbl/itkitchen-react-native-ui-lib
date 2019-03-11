@@ -73,4 +73,4 @@ const styles = StyleSheet.create({
 });
 ```
 
-(./images/wordsFromUpperCase.jpg)
+![Functions.wordsFromUpperCase("some text without upper case")](./images/wordsFromUpperCase.jpg)
