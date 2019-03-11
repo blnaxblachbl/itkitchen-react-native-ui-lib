@@ -194,7 +194,7 @@ enabledBackgroundColor | switch background color when it is on | '#ccc' | string
 disabledBackgroundColor | switch background color when it is off | '#ccc' | string
 onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
 
-- **_ListModal_** - is UI component of list with item fool screen opening animation.
+- **_ListModal_** - is UI component of list with item full screen opening animation.
 
 ```javascript
 import {
@@ -289,7 +289,7 @@ and all FlatList component props |  |  | any
 Name | Description | Default | Type
 ------|-------------|----------|-----------
 setlectItem | select item | this.ref.selectModal({item ,index}) | func
-modalClose | close opened fool screen modal | this.ref.modalClose() | func
+modalClose | close opened full screen modal | this.ref.modalClose() | func
 
 - **_AnimatedHeaderScreen_** - is UI component with animated header.
 
