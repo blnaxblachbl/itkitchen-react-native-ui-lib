@@ -426,7 +426,7 @@ data | array of data | [] | array
 childrenFirst | you can use AnimatedHeaderScreen like container and like flat list. If you using it two variation as same time, this property set what will render first - children or list items |false | bool
 listStyle | style of list | {flex: 1, width: "100%"} | style
 listContainerStyle | style of list container | {alignItems: "center"} | style
-headerContainertStyle | style header container | {width: "100%", height: "100%"} | style
+headerContainertStyle | style of header container | {width: "100%", height: "100%"} | style
 headerBackgroundColor | header background color | '#ffffff' | string
 headerMaxHeight | header max height | 200 | number
 headerMinHeight | header min height | 55 | number
