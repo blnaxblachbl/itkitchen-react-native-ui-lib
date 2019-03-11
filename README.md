@@ -131,3 +131,44 @@ const styles = StyleSheet.create({
 ```
 
 <img width="35%" src="./gifs/validEmial.gif"/>
+
+### UI
+
+- **_Switch_** - is UI component:
+
+```javascript
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+
+//...
+
+render() {
+        return (
+            <View style={styles.container}>
+                <UI.Switch
+                    activeOpacity={0.6}
+                    textStyle={{
+                        fontSize: 20
+                    }}
+                    containderStyle={{
+                        width: "50%",
+                        height: 50
+                    }}
+                    circleStyle={{
+                        width: "50%",
+                        height: 40,
+                        borderRadius: 20
+                    }}
+                    enabledCircleColor="#4DC861"
+                    disabledCircleColor="red"
+                    enabledText="On"
+                    disabledText="Off"
+                    enabledBackgroundColor="#ccc"
+                    disabledBackgroundColor="#ccc"
+                    onChangeState={switchState => this.setState({ switchState })}
+                />
+            </View>
+        );
+}
+```
+
+<img width="35%" src="./gifs/switch.gif"/>
