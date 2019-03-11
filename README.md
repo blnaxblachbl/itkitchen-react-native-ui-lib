@@ -364,7 +364,7 @@ export default class App extends Component {
 }
 ```
 
-You can user it like flat list - 
+You can use it like flat list - 
 ```javascript
     render() {
         return (
@@ -426,7 +426,7 @@ Or like some content container -
 Name | Description | Default | Type
 ------|-------------|----------|-----------
 data | array of data | [] | array
-childrenFirst | you can use AnimatedHeaderScreen like container and like flat list. If you using it two variation as same time, this property set what will render first - children or list items ||
+childrenFirst | you can use AnimatedHeaderScreen like container and like flat list. If you using it two variation as same time, this property set what will render first - children or list items |false | bool
 listStyle | style of list | {flex: 1, width: "100%"} | style
 listContainerStyle | style of list container | {alignItems: "center"} | style
 headerContainertStyle | style header container | {width: "100%", height: "100%"} | style
