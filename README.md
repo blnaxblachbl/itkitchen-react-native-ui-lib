@@ -426,6 +426,7 @@ Or like some content container -
 Name | Description | Default | Type
 ------|-------------|----------|-----------
 data | array of data | [] | array
+childrenFirst | you can use AnimatedHeaderScreen like container and like flat list. If you using it two variation as same time, this property set what will render first - children or list items ||
 listStyle | style of list | {flex: 1, width: "100%"} | style
 listContainerStyle | style of list container | {alignItems: "center"} | style
 headerContainertStyle | style header container | {width: "100%", height: "100%"} | style
@@ -435,4 +436,4 @@ headerMinHeight | header min height | 55 | number
 headerComponentsMinOpacity | header components can change opacity on animate. If you don't wont use opacity set it to 1 | 0 | from 0  to 1
 renderHeader | callback to render header. Offset parameter is scroll offset value. Also offset is animated value, you can use interpolate to it | (offset) => {return(Component)} | func
 renderItem | callback to render item | ({ item, index }) => {return(Component)} | func
-and all FlatList component props |  |  | any
+and all FlatList component props, without onScroll |  |  | any
