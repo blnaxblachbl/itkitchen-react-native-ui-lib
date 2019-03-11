@@ -284,3 +284,9 @@ listContainerStyle | style of list container | {alignItems: "center"} | style
 itemContainerStyle | style of list item | {width: "100%", height: "100%"} | style
 renderItem | callback to render item | ({ item, index }, state) => {return(Component)} | func
 and all FlatList component props |  |  | any
+
+#### Methods
+Name | Description | Default | Type
+------|-------------|----------|-----------
+setlectItem | select item | this.ref.selectModal({item ,index}) | func
+modalClose | close opened fool screen modal | this.ref.modalClose() | func
