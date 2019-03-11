@@ -22,7 +22,7 @@ import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 ```
 
 ### Funcions
-- normalize - is a function that normalizes the font size of the text relative to the screen size.
+- **normalize** - is a function that normalizes the font size of the text relative to the screen size.
 
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
@@ -32,7 +32,7 @@ import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 render() {
         return (
             <View style={styles.container}>
-                <Text style={{ fontSize: Functions.normalize(14), color: "#000000", marginBottom: 15 }}>Text</Text>
+                <Text style={{ fontSize: Functions.normalize(14), color: "#000000", marginBottom: 15 }}>Some text</Text>
             </View>
         );
 }
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
 });
 ```
 
-- wordsFromUpperCase - is a regex function that replace words first lower case character to upper.
+- **wordsFromUpperCase** - is a regex function that replace words first lower case character to upper.
 
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
@@ -73,4 +73,4 @@ const styles = StyleSheet.create({
 });
 ```
 
-![Functions.wordsFromUpperCase("some text without upper case")](./images/wordsFromUpperCase.jpg)
+(./images/wordsFromUpperCase.jpg)
