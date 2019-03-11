@@ -35,7 +35,9 @@ export default class List extends Component {
     }
 
     componentDidMount() {
-        this.props.onRef(this)
+        if (this.props.onRef) {
+            this.props.onRef(this)
+        }
     }
 
     onChangeState = (state) => {
