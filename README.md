@@ -394,10 +394,7 @@ Or like some content container -
     render() {
         return (
             <UI.AnimatedHeaderScreen
-                data={this.state.orders}
                 renderHeader={this.renderHeader}
-                renderItem={this.renderItem}
-                childrenFirst={true}
                 headerMinHeight={55}
                 numColumns={2}
                 headerMaxHeight={200}
