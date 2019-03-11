@@ -5,11 +5,11 @@ itkitchen-react-native-ui-lib is a framework that contains a set of UI component
 ## Setup
 To install it open your project in command line and run:
 ```
-$ npm install itkitchen-react-native-ui-lib
+npm install itkitchen-react-native-ui-lib
 ```
 OR
 ```
-$ yarn add itkitchen-react-native-ui-lib
+yarn add itkitchen-react-native-ui-lib
 ```
 Thats it!
 
@@ -17,6 +17,6 @@ Thats it!
 
 To use you can import two libs - Functions a UI:
 
-```
+```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 ```
