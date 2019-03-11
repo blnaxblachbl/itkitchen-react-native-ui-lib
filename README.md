@@ -1,18 +1,22 @@
 # itkitchen-react-native-ui-lib
 
-itkitchen-react-native-ui-lib is a library that contains a set of UI components and functions. 
+itkitchen-react-native-ui-lib is a framework that contains a set of UI components and functions. 
 
 ## Setup
-To run this project, install it locally using npm:
-
+To install it open your project in command line and run:
 ```
 $ npm install itkitchen-react-native-ui-lib
 ```
-
 OR
-
 ```
 $ yarn add itkitchen-react-native-ui-lib
 ```
-
 Thats it!
+
+## Usage
+
+To use you can import two libs - Functions a UI:
+
+```
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+```
