@@ -136,20 +136,20 @@ const styles = StyleSheet.create({
 
 - **_Switch_** - is UI component:
      - *Props*
-         Name | Description | Default | Type
-        ------|-------------|----------|-----------
-        activeOpacity | opacity level on press | 0.6 | from 0 to 1
-        initPosition | initial position | false | bool
-        textStyle | switch text style | undefined | style
-        containderStyle | switch container style | undefined | style
-        circleStyle | switch circle style | undefined | style
-        enabledCircleColor | color for circle of switch when it is on | '#4DC861' | string
-        disabledCircleColor | color for circle of switch when it is off | 'red' | string
-        enabledText | text of switch when it is on | 'On' | string
-        disabledText | text of switch when it is off | 'Off' | string
-        enabledBackgroundColor | switch background color when it is on | '#ccc' | string
-        disabledBackgroundColor | switch background color when it is off | '#ccc' | string
-        onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
+Name | Description | Default | Type
+------|-------------|----------|-----------
+activeOpacity | opacity level on press | 0.6 | from 0 to 1
+initPosition | initial position | false | bool
+textStyle | switch text style | undefined | style
+containderStyle | switch container style | undefined | style
+circleStyle | switch circle style | undefined | style
+enabledCircleColor | color for circle of switch when it is on | '#4DC861' | string
+disabledCircleColor | color for circle of switch when it is off | 'red' | string
+enabledText | text of switch when it is on | 'On' | string
+disabledText | text of switch when it is off | 'Off' | string
+enabledBackgroundColor | switch background color when it is on | '#ccc' | string
+disabledBackgroundColor | switch background color when it is off | '#ccc' | string
+onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
 
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
