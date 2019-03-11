@@ -3,7 +3,7 @@
 itkitchen-react-native-ui-lib is a framework that contains a set of UI components and functions. 
 
 ## Setup
-To install it open your project in command line and run:
+To install open your project in command line and run:
 ```
 npm install itkitchen-react-native-ui-lib
 ```
@@ -15,14 +15,14 @@ Thats it!
 
 ## Usage
 
-To use you can import two libs - Functions a UI:
+For use you can import Functions and UI:
 
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 ```
 
-### Funcions
-- **_normalize_** - is a function that normalizes the font size of the text relative to the screen size.
+### Functions
+- **_normalize_** - is a function which normalizes the font size of the text relative to the screen size.
 
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
