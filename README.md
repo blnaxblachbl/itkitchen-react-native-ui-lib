@@ -139,6 +139,10 @@ const styles = StyleSheet.create({
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 
+state = {
+    switchState: false
+}
+
 //...
 
 render() {
