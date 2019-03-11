@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
 ### UI
 
 - **_Switch_** - is UI component:
+ - **_Props_**
 
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
@@ -176,5 +177,3 @@ render() {
 ```
 
 <img width="35%" src="./gifs/switch.gif"/>
-
- - **_Props_**
