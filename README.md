@@ -290,3 +290,79 @@ Name | Description | Default | Type
 ------|-------------|----------|-----------
 setlectItem | select item | this.ref.selectModal({item ,index}) | func
 modalClose | close opened fool screen modal | this.ref.modalClose() | func
+
+- **_AnimatedHeaderScreen_** - is UI component with animated header.
+
+```javascript
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+
+const { width, height } = Dimensions.get("window")
+
+const link = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzzyZm5CZ0w1XbzT7T08yGgFNPOXBD5ZNxswRNM3XXsrb0-OUW"
+
+export default class App extends Component {
+
+    state = {
+        orders: [link, link, link, link, link, link, link, link, link, link, link, link, link, link, link]
+    }
+
+    renderHeader = (offset) => {
+        let x = offset.interpolate({
+            inputRange: [0, 150],
+            outputRange: [0, (-width / 2) + 50],
+            extrapolate: 'clamp'
+        })
+        return (
+            <Animated.Text
+                style={{
+                    color: "#ffffff",
+                    fontSize: 14,
+                    fontWeight: "bold",
+                    transform: [{ translateX: x }],
+                    position: "absolute",
+                }}
+            >Dogs List</Animated.Text>
+        )
+    }
+
+    renderItem = ({ item, index }) => (
+        <View
+            style={{
+                width: (width / 2) - 15,
+                height: 250,
+                marginHorizontal: 5,
+                marginTop: 15,
+                borderRadius: 5,
+                overflow: 'hidden'
+            }}
+        >
+            <Image source={{ uri: item }} style={{ width: "100%", height: 250 }} resizeMode="cover" />
+        </View>
+    )
+
+    render() {
+        return (
+            <UI.AnimatedHeaderScreen
+                data={this.state.orders}
+                renderHeader={this.renderHeader}
+                renderItem={this.renderItem}
+                childrenFirst={true}
+                headerMinHeight={55}
+                numColumns={2}
+                headerMaxHeight={200}
+                headerComponentsMinOpacity={1}
+                headerBackgroundColor="#0366d6"
+                headerContainertStyle={{
+                    alignItems: "center",
+                    justifyContent: "center",
+                    width: width / 2,
+                    height: 150
+                }}
+            />
+        );
+    }
+
+}
+```
+
+<img width="35%" src="./gifs/header.gif"/>
