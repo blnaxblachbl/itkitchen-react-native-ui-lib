@@ -176,3 +176,5 @@ render() {
 ```
 
 <img width="35%" src="./gifs/switch.gif"/>
+
+ - **_Props_**
