@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
 ### UI
 
 - **_Switch_** - is UI component:
- - **_Props_**
+     - **_Props_**
 
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
