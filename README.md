@@ -276,15 +276,11 @@ export default class App extends Component {
 #### Props
 Name | Description | Default | Type
 ------|-------------|----------|-----------
-activeOpacity | opacity level on press | 0.6 | from 0 to 1
-initPosition | initial position | false | bool
-textStyle | switch text style | undefined | style
-containderStyle | switch container style | undefined | style
-circleStyle | switch circle style | undefined | style
-enabledCircleColor | color for circle of switch when it is on | '#4DC861' | string
-disabledCircleColor | color for circle of switch when it is off | 'red' | string
-enabledText | text of switch when it is on | 'On' | string
-disabledText | text of switch when it is off | 'Off' | string
-enabledBackgroundColor | switch background color when it is on | '#ccc' | string
-disabledBackgroundColor | switch background color when it is off | '#ccc' | string
-onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
+onRef | reference callback | (ref) => {this.list = ref} | func
+data | array of data | [] | array
+numColumns | number of culumns | 1 | number
+listStyle | style of list | {flex: 1, width: "100%"} | style
+listContainerStyle | style of list container | {alignItems: "center"} | style
+itemContainerStyle | style of list item | {width: "100%", height: "100%"} | style
+renderItem | callback to render item | ({ item, index }, state) => {return(Component)} | func
+and all FlatList component props |  |  | any
