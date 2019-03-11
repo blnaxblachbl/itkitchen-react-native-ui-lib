@@ -129,3 +129,5 @@ const styles = StyleSheet.create({
     }
 });
 ```
+
+<img width="35%" src="./gifs/validEmial.gif"/>
