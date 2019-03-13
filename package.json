@@ -16,9 +16,13 @@
     "url": "https://github.com/blnaxblachbl/itkitchen-react-native-ui-lib/issues"
   },
   "homepage": "https://github.com/blnaxblachbl/itkitchen-react-native-ui-lib#readme",
-  "dependencies": {
-    "react": "^16.8.3",
-    "react-native": "^0.58.6"
+  "devDependencies": {
+    "react": "16.8.3",
+    "react-native": "0.59.0"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
   },
   "keywords": [
     "itkitchen",
