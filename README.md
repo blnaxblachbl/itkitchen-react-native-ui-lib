@@ -54,14 +54,12 @@ import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 
 //...
 
-render() {
-        return (
-            <View style={styles.container}>
-                <Text style={{ fontSize: 14, color: "#000000" }}>{"some text without upper case"}</Text>
-                <Text style={{ fontSize: 14, color: "#000000" }}>{Functions.wordsFromUpperCase("some text without upper case")}</Text>
-            </View>
-        );
-}
+return (
+    <View style={styles.container}>
+        <Text style={{ fontSize: 14, color: "#000000" }}>{"some text without upper case"}</Text>
+        <Text style={{ fontSize: 14, color: "#000000" }}>{Functions.wordsFromUpperCase("some text without upper case")}</Text>
+    </View>
+);
 
 const styles = StyleSheet.create({
     container: {
@@ -82,26 +80,28 @@ import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 
 //...
 
-checkEmail = () => {
-    let check = Functions.emailValid(this.state.email)
+const [email, setEmail] = useState("")
+
+const checkEmail = () => {
+    let check = Functions.emailValid(email)
     alert(check)
 }
 
-render() {
-        return (
-            <View style={styles.container}>
-                <TextInput
-                    value={this.state.email}
-                    onChangeText={email => this.setState({ email })}
-                    placeholder="Введите ваше имя"
-                    style={styles.textInput}
-                />
-                <TouchableOpacity onPress={this.checkEmail} style={styles.buttonContainer}>
-                    <Text style={{ color: "#ffffff" }}>Check email</Text>
-                </TouchableOpacity>
-            </View>
-        );
-}
+return (
+    <View style={styles.container}>
+        <TextInput
+            value={email}
+            onChangeText={email => setEmail(email)}
+            placeholder="Введите ваше имя"
+            style={styles.textInput}
+        />
+        <TouchableOpacity onPress={checkEmail} style={styles.buttonContainer}>
+            <Text style={{ color: "#ffffff" }}>Check email</Text>
+        </TouchableOpacity>
+    </View>
+)
+
+//...
 
 const styles = StyleSheet.create({
     container: {
@@ -139,40 +139,39 @@ const styles = StyleSheet.create({
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 
-state = {
-    switchState: false
-}
+const [switchState, setSwitchState] = useState(false)
 
 //...
 
-render() {
-        return (
-            <View style={styles.container}>
-                <UI.Switch
-                    activeOpacity={0.6}
-                    textStyle={{
-                        fontSize: 20
-                    }}
-                    containderStyle={{
-                        width: "50%",
-                        height: 50
-                    }}
-                    circleStyle={{
-                        width: "50%",
-                        height: 40,
-                        borderRadius: 20
-                    }}
-                    enabledCircleColor="#4DC861"
-                    disabledCircleColor="red"
-                    enabledText="On"
-                    disabledText="Off"
-                    enabledBackgroundColor="#ccc"
-                    disabledBackgroundColor="#ccc"
-                    onChangeState={switchState => this.setState({ switchState })}
-                />
-            </View>
-        );
-}
+return (
+    <View style={styles.container}>
+        <UI.Switch
+            activeOpacity={0.6}
+            textStyle={{
+                fontSize: 20
+            }}
+            containderStyle={{
+                width: "50%",
+                height: 50
+            }}
+            circleStyle={{
+                width: "50%",
+                height: 40,
+                borderRadius: 20
+            }}
+            enabledCircleColor="#4DC861"
+            disabledCircleColor="red"
+            enabledText="On"
+            disabledText="Off"
+            enabledBackgroundColor="#ccc"
+            disabledBackgroundColor="#ccc"
+            onChangeState={switchState => setSwitchState(switchState)}
+        />
+    </View>
+)
+
+//...
+
 ```
 
 <img width="35%" src="./gifs/switch.gif"/>
@@ -194,119 +193,30 @@ enabledBackgroundColor | switch background color when it is on | '#ccc' | string
 disabledBackgroundColor | switch background color when it is off | '#ccc' | string
 onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
 
-- **_ListModal_** - is UI component of list with item full screen opening animation.
+- **_ListModal_** - removed. Maybe in the next update we will refactor and refund it.
+
+- **_AnimatedHeaderList_** - is UI component with animated header. This component based on FlatList and support all props of it. 
 
 ```javascript
-import {
-    Platform,
-    StyleSheet,
-    Text,
-    View,
-    ScrollView,
-    Dimensions,
-    ImageBackground,
-    TouchableOpacity,
-    Image,
-    Animated,
-    TextInput
-} from 'react-native';
+//...
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 
-const { width, height } = Dimensions.get("window")
+const { width, height } = Dimensions.get('window')
 
-const link = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzzyZm5CZ0w1XbzT7T08yGgFNPOXBD5ZNxswRNM3XXsrb0-OUW"
-const testText = "Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. Съешь ещё этих мягких французских булок, да выпей же чаю. "
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        width,
+    },
+})
 
-export default class App extends Component {
+const link = "https://i.ytimg.com/vi/1KQGMnEn9K0/maxresdefault.jpg"
 
-    state = {
-        orders: [link, link, link, link, link, link, link, link, link, link, link, link, link, link, link],
-    }
+const orders = [link, link, link, link, link, link, link, link, link, link, link, link, link, link, link]
 
-    renderItem = ({ item, index }, state) => {
-        return (
-            <ScrollView
-                style={{
-                    width: "100%",
-                    height: "100%",
-                    backgroundColor: "#ffffff"
-                }}
-                showsHorizontalScrollIndicator={state}
-                contentContainerStyle={{ alignItems: "center" }}
-            >
-                {state && (
-                    <TouchableOpacity onPress={() => { this.list.modalClose() }} style={{ position: "absolute", top: 10, right: 10, zIndex: 999 }} >
-                        <View style={{ width: 20, height: 20, borderRadius: 10, backgroundColor: "red" }} />
-                    </TouchableOpacity>
-                )}
-                <Image source={{ uri: item }} style={{ width: "100%", height: 250 }} resizeMode="cover" />
-                <Text style={{ color: "#000000", fontSize: 16, paddingHorizontal: 10 }}>{testText}</Text>
-            </ScrollView>
-        )
-    }
-    
-    render() {
-        return (
-            <View style={styles.container}>
-                <UI.ListModal
-                    onRef={ref => this.list = ref}
-                    data={this.state.orders}
-                    numColumns={2}
-                    listStyle={{ flex: 1, width: width }}
-                    listContainerStyle={{ alignItems: "center", paddingBottom: 15 }}
-                    itemContainerStyle={{
-                        width: (width / 2) - 15,
-                        height: 250,
-                        marginHorizontal: 5,
-                        marginTop: 15,
-                        borderRadius: 5,
-                        overflow: 'hidden'
-                    }}
-                    renderItem={this.renderItem}
-                />
-            </View>
-        );
-    }
+const AnimatedHeader = props => {
 
-}
-```
-
-<img width="35%" src="./gifs/listmodal.gif"/>
-
-#### Props
-Name | Description | Default | Type
-------|-------------|----------|-----------
-onRef | reference callback | (ref) => {this.list = ref} | func
-data | array of data | [] | array
-numColumns | number of culumns | 1 | number
-listStyle | style of list | {flex: 1, width: "100%"} | style
-listContainerStyle | style of list container | {alignItems: "center"} | style
-itemContainerStyle | style of list item | {width: "100%", height: "100%"} | style
-renderItem | callback to render item | ({ item, index }, state) => {return(Component)} | func
-and all FlatList component props |  |  | any
-
-#### Methods
-Name | Description | Default | Type
-------|-------------|----------|-----------
-setlectItem | select item | this.ref.selectModal({item ,index}) | func
-modalClose | close opened full screen modal | this.ref.modalClose() | func
-
-- **_AnimatedHeaderScreen_** - is UI component with animated header.
-
-```javascript
-import { Functions, UI } from 'itkitchen-react-native-ui-lib'
-
-const { width, height } = Dimensions.get("window")
-
-const link = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzzyZm5CZ0w1XbzT7T08yGgFNPOXBD5ZNxswRNM3XXsrb0-OUW"
-
-export default class App extends Component {
-
-    state = {
-        orders: [link, link, link, link, link, link, link, link, link, link, link, link, link, link, link]
-    }
-
-    renderHeader = (offset) => {
+    const renderHeader = (offset) => {
         let x = offset.interpolate({
             inputRange: [0, 150],
             outputRange: [0, (-width / 2) + 50],
@@ -321,11 +231,11 @@ export default class App extends Component {
                     transform: [{ translateX: x }],
                     position: "absolute",
                 }}
-            >Dogs List</Animated.Text>
+            >Cats List</Animated.Text>
         )
     }
 
-    renderItem = ({ item, index }) => (
+    const renderItem = ({ item, index }) => (
         <View
             style={{
                 width: (width / 2) - 15,
@@ -340,81 +250,26 @@ export default class App extends Component {
         </View>
     )
 
-    render() {
-        return (
-            <UI.AnimatedHeaderScreen
-                data={this.state.orders}
-                renderHeader={this.renderHeader}
-                renderItem={this.renderItem}
-                headerMinHeight={55}
-                numColumns={2}
-                headerMaxHeight={200}
-                headerComponentsMinOpacity={1}
-                headerBackgroundColor="#0366d6"
-                headerContainertStyle={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: width / 2,
-                    height: 150
-                }}
-            />
-        );
-    }
-
+    return (
+        <UI.AnimatedHeaderScreen
+            data={orders}
+            style={styles.container}
+            renderHeader={renderHeader}
+            renderItem={renderItem}
+            headerMinHeight={55}
+            numColumns={2}
+            headerMaxHeight={200}
+            headerComponentsMinOpacity={1}
+            headerBackgroundColor="#0366d6"
+            headerContainertStyle={{
+                alignItems: "center",
+                justifyContent: "center",
+                width: width / 2,
+                height: 150
+            }}
+        />
+    )
 }
-```
-
-You can use it like flat list - 
-```javascript
-    render() {
-        return (
-            <UI.AnimatedHeaderScreen
-                data={this.state.orders}
-                renderHeader={this.renderHeader}
-                renderItem={this.renderItem}
-                headerMinHeight={55}
-                numColumns={2}
-                headerMaxHeight={200}
-                headerComponentsMinOpacity={1}
-                headerBackgroundColor="#0366d6"
-                headerContainertStyle={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: width / 2,
-                    height: 150
-                }}
-            />
-        );
-    }
-```
-
-Or like some content container - 
-
-```javascript
-    render() {
-        return (
-            <UI.AnimatedHeaderScreen
-                renderHeader={this.renderHeader}
-                headerMinHeight={55}
-                numColumns={2}
-                headerMaxHeight={200}
-                headerComponentsMinOpacity={1}
-                headerBackgroundColor="#0366d6"
-                headerContainertStyle={{
-                    alignItems: "center",
-                    justifyContent: "center",
-                    width: width / 2,
-                    height: 150
-                }}
-            >
-                {
-                    this.state.orders.map((item, index)=>{
-                        return this.renderItem({item, index})
-                    })
-                }
-            </UI.AnimatedHeaderScreen>
-        );
-    }
 ```
 
 <img width="35%" src="./gifs/header.gif"/>
@@ -423,9 +278,8 @@ Or like some content container -
 Name | Description | Default | Type
 ------|-------------|----------|-----------
 data | array of data | [] | array
-childrenFirst | you can use AnimatedHeaderScreen like container and like flat list. If you using it two variation as same time, this property set what will render first - children or list items |false | bool
-listStyle | style of list | {flex: 1, width: "100%"} | style
-listContainerStyle | style of list container | {alignItems: "center"} | style
+style | style of list | {flex: 1, width: "100%"} | style
+contentContainerStyle | style of list container | {alignItems: "center"} | style
 headerContainertStyle | style of header container | {width: "100%", height: "100%"} | style
 headerBackgroundColor | header background color | '#ffffff' | string
 headerMaxHeight | header max height | 200 | number
@@ -434,3 +288,71 @@ headerComponentsMinOpacity | header components can change opacity on animate. If
 renderHeader | callback to render header. Offset parameter is scroll offset value. Also offset is animated value, you can use interpolate to it | (offset) => {return(Component)} | func
 renderItem | callback to render item | ({ item, index }) => {return(Component)} | func
 and all FlatList component props, without onScroll |  |  | any
+
+- **_TextInput_** - is UI component with animated lable of text input. 
+
+```javascript
+//...
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+//...
+const [text, setText] = useState("")
+
+return (
+    <View style={styles.container}>
+        <UI.TextInput
+            value={text}
+            onChangeText={text => setText(text)}
+            placeholder="Name"
+            containerStyle={{ width: "95%" }}
+        />
+    </View>
+)
+//...
+```
+
+<img width="35%" src="./gifs/textInput.gif"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+data | array of data | [] | array
+containerStyle | style of text input container | object | style
+style | style of TextInput component | object | style
+IconComponent | icon component that will render on left side of input | null | React Component
+iconVisible | the boolean prop that hide or show icon component | false | bool
+disableAnimation | the boolean prop that disable animation | false | bool
+focusedPlaceholderTextColor | if lable color shuld change on focus, pass your color to this props | same with placeholderTextColor | String
+maskType | type of text input mask. On this time that props get only one mask - "mobile phone". Masked value - "+7 (123) 456 78 90" | "" | String
+and all TextInput component props |  |  | any
+
+- **_Button_** - is UI component of button.
+
+```javascript
+//...
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+//...
+return (
+    <View style={styles.container}>
+        <UI.Button 
+            text="Button"
+            style={{
+                width: '95%',
+                height: 40,
+            }}
+        />
+    </View>
+)
+```
+
+<img width="35%" src="./images/button.png"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+style | style of Button component | object | style
+textStyle | style of button text | object | style
+onPress | function that call when button pressed | onPress={()=>{}} | func
+activeOpacity | determines what the opacity of the wrapped view should be when touch is active. From 0 to 1 | 0.6 | float
+text | text that will display on button | "ItKitchenButton" | String
+loading | boolean props that show or hide spinner, also if loading true function "onPress" will not be called | false | bool
+loadingColor | color of loading spinner | "#ffffff" | String

@@ -1,9 +1,12 @@
-import Switch from './switch/switch'
-import ListModal from './foolScreenAnimationList/list'
-import AnimatedHeaderScreen from './animatedHeaderScreen/screen'
+import Switch from './switch'
+import AnimatedHeaderList from './animatedHeaderScreen'
+import TextInput from './textInput'
+import Button from './button'
+// import ListModal from './foolScreenAnimationList/list'
 
 export default {
     Switch,
-    ListModal,
-    AnimatedHeaderScreen
+    AnimatedHeaderList,
+    TextInput,
+    Button
 }
