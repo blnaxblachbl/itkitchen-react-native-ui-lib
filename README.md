@@ -21,117 +21,6 @@ For use you can import Functions and UI:
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 ```
 
-### Functions
-- **_normalize_** - is a function which normalizes the font size of the text relative to the screen size.
-
-```javascript
-import { Functions, UI } from 'itkitchen-react-native-ui-lib'
-
-//...
-
-render() {
-        return (
-            <View style={styles.container}>
-                <Text style={{ fontSize: Functions.normalize(14), color: "#000000", marginBottom: 15 }}>Some text</Text>
-            </View>
-        );
-}
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-});
-```
-
-- **_wordsFromUpperCase_** - is a regex function that replace words first lower case character to upper.
-
-```javascript
-import { Functions, UI } from 'itkitchen-react-native-ui-lib'
-
-//...
-
-return (
-    <View style={styles.container}>
-        <Text style={{ fontSize: 14, color: "#000000" }}>{"some text without upper case"}</Text>
-        <Text style={{ fontSize: 14, color: "#000000" }}>{Functions.wordsFromUpperCase("some text without upper case")}</Text>
-    </View>
-);
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-});
-```
-
-<img width="35%" src="./images/wordsFromUpperCase.jpg"/>
-
-- **_wordsFromUpperCase_** - is a regex function that return *true* if email is valid and return *false* if is not.
-
-```javascript
-import { Functions, UI } from 'itkitchen-react-native-ui-lib'
-
-//...
-
-const [email, setEmail] = useState("")
-
-const checkEmail = () => {
-    let check = Functions.emailValid(email)
-    alert(check)
-}
-
-return (
-    <View style={styles.container}>
-        <TextInput
-            value={email}
-            onChangeText={email => setEmail(email)}
-            placeholder="Введите ваше имя"
-            style={styles.textInput}
-        />
-        <TouchableOpacity onPress={checkEmail} style={styles.buttonContainer}>
-            <Text style={{ color: "#ffffff" }}>Check email</Text>
-        </TouchableOpacity>
-    </View>
-)
-
-//...
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#F5FCFF',
-    },
-    buttonContainer: {
-        width: "90%",
-        height: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        backgroundColor: "blue",
-        borderRadius: 24,
-    },
-    textInput: {
-        height: 45,
-        width: "90%",
-        borderRadius: 24,
-        backgroundColor: '#e8e8e8',
-        justifyContent: "center",
-        paddingHorizontal: 15,
-        marginBottom: 15
-    }
-});
-```
-
-<img width="35%" src="./gifs/validEmial.gif"/>
-
 ### UI
 
 - **_Switch_** - is UI component of switch:
@@ -356,3 +245,113 @@ activeOpacity | determines what the opacity of the wrapped view should be when t
 text | text that will display on button | "ItKitchenButton" | String
 loading | boolean props that show or hide spinner, also if loading true function "onPress" will not be called | false | bool
 loadingColor | color of loading spinner | "#ffffff" | String
+
+
+### Functions
+- **_normalize_** - is a function which normalizes the font size of the text relative to the screen size.
+
+```javascript
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+
+//...
+
+return (
+    <View style={styles.container}>
+        <Text style={{ fontSize: Functions.normalize(14), color: "#000000", marginBottom: 15 }}>Some text</Text>
+    </View>
+);
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+});
+```
+
+- **_wordsFromUpperCase_** - is a regex function that replace words first lower case character to upper.
+
+```javascript
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+
+//...
+
+return (
+    <View style={styles.container}>
+        <Text style={{ fontSize: 14, color: "#000000" }}>{"some text without upper case"}</Text>
+        <Text style={{ fontSize: 14, color: "#000000" }}>{Functions.wordsFromUpperCase("some text without upper case")}</Text>
+    </View>
+);
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+});
+```
+
+<img width="35%" src="./images/wordsFromUpperCase.jpg"/>
+
+- **_wordsFromUpperCase_** - is a regex function that return *true* if email is valid and return *false* if is not.
+
+```javascript
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+
+//...
+
+const [email, setEmail] = useState("")
+
+const checkEmail = () => {
+    let check = Functions.emailValid(email)
+    alert(check)
+}
+
+return (
+    <View style={styles.container}>
+        <TextInput
+            value={email}
+            onChangeText={email => setEmail(email)}
+            placeholder="Введите ваше имя"
+            style={styles.textInput}
+        />
+        <TouchableOpacity onPress={checkEmail} style={styles.buttonContainer}>
+            <Text style={{ color: "#ffffff" }}>Check email</Text>
+        </TouchableOpacity>
+    </View>
+)
+
+//...
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#F5FCFF',
+    },
+    buttonContainer: {
+        width: "90%",
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: "blue",
+        borderRadius: 24,
+    },
+    textInput: {
+        height: 45,
+        width: "90%",
+        borderRadius: 24,
+        backgroundColor: '#e8e8e8',
+        justifyContent: "center",
+        paddingHorizontal: 15,
+        marginBottom: 15
+    }
+});
+```
+
+<img width="35%" src="./gifs/validEmial.gif"/>
