@@ -274,7 +274,7 @@ return (
 )
 ```
 
-<img width="35%" src="./images/radioButtons.gif"/>
+<img width="35%" src="./gifs/radioButtons.gif"/>
 
 #### Props
 Name | Description | Default | Type
@@ -327,7 +327,7 @@ return (
 )
 ```
 
-<img width="35%" src="./images/dropDown.gif"/>
+<img width="35%" src="./gifs/dropDown.gif"/>
 
 #### Props
 Name | Description | Default | Type
@@ -463,4 +463,4 @@ return (
 )
 ```
 
-<img width="35%" src="./gifs/hexToRgb.png"/>
+<img width="35%" src="./images/hexToRgb.png"/>
