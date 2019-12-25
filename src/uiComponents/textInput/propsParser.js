@@ -6,10 +6,6 @@ export default (props) => {
             switch (key) {
                 case "onChangeText":
                     break;
-                case "multiline":
-                    break;
-                case "secureTextEntry":
-                    break;
                 case "containerStyle":
                     break;
                 case "style":
@@ -41,10 +37,6 @@ export default (props) => {
                 case "onChangeText":
                     break;
                 case "placeholder":
-                    break;
-                case "multiline":
-                    break;
-                case "secureTextEntry":
                     break;
                 case "containerStyle":
                     break;

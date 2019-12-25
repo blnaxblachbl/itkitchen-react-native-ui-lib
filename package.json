@@ -1,6 +1,6 @@
 {
   "name": "itkitchen-react-native-ui-lib",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "itkitchen react-native ui lib",
   "main": "index.js",
   "scripts": {
@@ -39,6 +39,8 @@
     "email",
     "animated text input",
     "button",
-    "header"
+    "hex to rgb",
+    "drop down",
+    "radio"
   ]
 }

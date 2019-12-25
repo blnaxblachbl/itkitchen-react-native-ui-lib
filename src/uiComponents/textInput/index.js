@@ -65,8 +65,6 @@ const TextInputComponent = (props) => {
         value,
         onChangeText,
         placeholder,
-        multiline,
-        secureTextEntry,
         containerStyle,
         style,
         placeholderTextColor,
@@ -80,7 +78,6 @@ const TextInputComponent = (props) => {
 
     let passedProps = propsParser(props)
 
-    const [passVisble, setPassVisble] = useState(!secureTextEntry)
     const [focused, setFocused] = useState(false)
     const [componentHeight, setComponentHeight] = useState(0)
     const [placeholderHeight, setPlaceholderHeight] = useState(1)
@@ -131,8 +128,6 @@ const TextInputComponent = (props) => {
                     value={isMasked(maskType, value)}
                     onChangeText={onChange}
                     style={[styles.textInput, style]}
-                    multiline={secureTextEntry ? false : multiline}
-                    secureTextEntry={!passVisble}
                     maxLength={setMaxLength(maskType, maxLength)}
                     {...passedProps}
                 />
@@ -148,8 +143,6 @@ const TextInputComponent = (props) => {
                 value={isMasked(maskType, value)}
                 onChangeText={onChange}
                 style={[styles.textInput, style]}
-                multiline={secureTextEntry ? false : multiline}
-                secureTextEntry={!passVisble}
                 onFocus={() => setFocusedFunc(true)}
                 onBlur={() => setFocusedFunc(false)}
                 maxLength={setMaxLength(maskType, maxLength)}

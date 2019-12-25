@@ -210,8 +210,8 @@ style | style of TextInput component | object | style
 IconComponent | icon component that will render on left side of input | null | React Component
 iconVisible | the boolean prop that hide or show icon component | false | bool
 disableAnimation | the boolean prop that disable animation | false | bool
-focusedPlaceholderTextColor | if lable color shuld change on focus, pass your color to this props | same with placeholderTextColor | String
-maskType | type of text input mask. On this time that props get only one mask - "mobile phone". Masked value - "+7 (123) 456 78 90" | "" | String
+focusedPlaceholderTextColor | if lable color shuld change on focus, pass your color to this props | same with placeholderTextColor | string
+maskType | type of text input mask. On this time that props get only one mask - "mobile phone". Masked value - "+7 (123) 456 78 90" | "" | string
 and all TextInput component props |  |  | any
 
 - **_Button_** - is UI component of button.
@@ -242,10 +242,101 @@ style | style of Button component | object | style
 textStyle | style of button text | object | style
 onPress | function that call when button pressed | onPress={()=>{}} | func
 activeOpacity | determines what the opacity of the wrapped view should be when touch is active. From 0 to 1 | 0.6 | float
-text | text that will display on button | "ItKitchenButton" | String
+text | text that will display on button | "ItKitchenButton" | string
 loading | boolean props that show or hide spinner, also if loading true function "onPress" will not be called | false | bool
-loadingColor | color of loading spinner | "#ffffff" | String
+loadingColor | color of loading spinner | "#ffffff" | string
 
+- **_RadioButton_** - is UI component of radio button.
+
+```javascript
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+//...
+const [value, setValue] = useState(false)
+const [value1, setValue1] = useState(false)
+//...
+return (
+    <View style={styles.container}>
+        <UI.Radio
+            value={value}
+            title="Title"
+            onPress={() => setValue(!value)}
+            activeTintColor="red"
+            inactiveTontColor="black"
+        />
+        <UI.Radio
+            value={value1}
+            title="Title 1"
+            onPress={() => setValue1(!value1)}
+            activeTintColor="red"
+            inactiveTontColor="black"
+        />
+    </View>
+)
+```
+
+<img width="35%" src="./images/radioButtons.png"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+containerStyle | style of the component container | object | style
+radioButtonStyle | style of the outer circle | object | style
+circleStyle | style of the inner circle | object | style
+value | value of button, if true button is checked | false | bool
+onPress | function that call when button pressed | onPress={()=>{}} | func
+activeOpacity | determines what the opacity of the wrapped view should be when touch is active. From 0 to 1 | 0.6 | float
+title | text that will display on right side of button | "" | string
+activeTintColor | color when button is checked | "#494043" | string
+inactiveTontColor | color when button is unchecked | "#494043" | string
+
+- **_Button_** - is UI component of drop down list.
+
+```javascript
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+//...
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        width,
+        alignItems: "center",
+        justifyContent: "center"
+    },
+    dropdown: {
+        width: "80%",
+        borderRadius: 5,
+        borderColor: "grey",
+        borderWidth: 1,
+        paddingHorizontal: 5
+    }
+})
+//...
+const [state, setState] = useState("")
+
+return (
+    <View style={styles.container}>
+        <DropDown
+            data={["value 1", "value 2"]}
+            value={state}
+            placeholder="Select value"
+            onDataChange={value => setState(value)}
+            style={styles.dropdown}
+        />
+        {/* <Text>{state}</Text>
+        </DropDown> */}
+    </View>
+)
+```
+
+<img width="35%" src="./images/dropDown.png"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+data | array of strings that will display on drop down list | [] | array
+value | value that will display on button | "" | string
+onDataChange | function that call when selected new value | onDataChange={value => {}} | func
+style | style of the component container | object | style
+placeholder | value that will display when "value" property is empty  | "" | string
 
 ### Functions
 - **_normalize_** - is a function which normalizes the font size of the text relative to the screen size.
@@ -297,7 +388,7 @@ const styles = StyleSheet.create({
 
 <img width="35%" src="./images/wordsFromUpperCase.jpg"/>
 
-- **_wordsFromUpperCase_** - is a regex function that return *true* if email is valid and return *false* if is not.
+- **_emailValid_** - is a regex function that return *true* if email is valid and return *false* if is not.
 
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
@@ -355,3 +446,21 @@ const styles = StyleSheet.create({
 ```
 
 <img width="35%" src="./gifs/validEmial.gif"/>
+
+- **_hexToRgba_** - is a function that can convert color hex value to rgb or rgba.
+
+```javascript
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+//...
+const color = "#c260b5"
+const alpha = 0.2
+return (
+    <View style={styles.container}>
+        <Text>{color}</Text>
+        <Text>{Functions.hexToRgba(color)}</Text>
+        <Text>{Functions.hexToRgba(color, alpha)}</Text>
+    </View>
+)
+```
+
+<img width="35%" src="./gifs/hexToRgb.gif"/>
