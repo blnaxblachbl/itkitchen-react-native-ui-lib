@@ -61,7 +61,7 @@ const CustopPreset = {
     }
 }
 
-export default  TextInputComponent = (props: TextInputProps) => {
+export default TextInputComponent = (props: TextInputProps) => {
     const {
         value,
         onChangeText,
@@ -150,11 +150,15 @@ export default  TextInputComponent = (props: TextInputProps) => {
                 style={[styles.textInput, style]}
                 onFocus={() => {
                     setFocusedFunc(true)
-                    onFocus()
+                    if (onFocus) {
+                        onFocus()
+                    }
                 }}
                 onBlur={() => {
                     setFocusedFunc(false)
-                    onBlur()
+                    if (onBlur) {
+                        onBlur()
+                    }
                 }}
                 maxLength={setMaxLength(maskType, maxLength)}
                 {...passedProps}
