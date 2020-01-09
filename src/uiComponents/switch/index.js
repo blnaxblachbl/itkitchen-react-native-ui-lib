@@ -41,7 +41,7 @@ const initSate = {
     circleText: "Off"
 }
 
-export default ({
+export default Switch = ({
     containderStyle,
     circleStyle,
     textStyle,

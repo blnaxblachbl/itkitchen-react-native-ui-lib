@@ -204,14 +204,14 @@ return (
 #### Props
 Name | Description | Default | Type
 ------|-------------|----------|-----------
-data | array of data | [] | array
+value | value of TextInput component | "" | string
 containerStyle | style of text input container | object | style
 style | style of TextInput component | object | style
 IconComponent | icon component that will render on left side of input | null | React Component
 iconVisible | the boolean prop that hide or show icon component | false | bool
 disableAnimation | the boolean prop that disable animation | false | bool
 focusedPlaceholderTextColor | if lable color shuld change on focus, pass your color to this props | same with placeholderTextColor | string
-maskType | type of text input mask. On this time that props get only one mask - "mobile phone". Masked value - "+7 (123) 456 78 90" | "" | string
+maskType | type of text input mask. On this time that props get only one mask - "mobile-phone". Masked value - "+7 (123) 456 78 90" | "" | string
 and all TextInput component props |  |  | any
 
 - **_Button_** - is UI component of button.

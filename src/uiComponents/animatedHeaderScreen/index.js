@@ -4,7 +4,8 @@ import {
     Dimensions,
     Animated,
     StyleSheet,
-    FlatList
+    FlatList,
+    FlatListProps
 } from 'react-native'
 import propsParser from './propsParser'
 
@@ -40,7 +41,7 @@ const styles = StyleSheet.create({
     },
 })
 
-export default props => {
+export default AnimatedHeaderScreen = (props: FlatListProps) => {
 
     const {
         onScroll,

@@ -56,6 +56,10 @@ export default (props) => {
                     break;
                 case "maxLength":
                     break;
+                case "onFocus":
+                    break;
+                case "onBlur":
+                    break;
                 default: {
                     let obj = {}
                     obj[key] = props[key]

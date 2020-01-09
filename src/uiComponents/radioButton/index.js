@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
 })
 
-const RidioButton = ({
+export default RidioButton = ({
     containerStyle,
     radioButtonStyle,
     circleStyle,
@@ -80,5 +80,3 @@ const RidioButton = ({
         </TouchableOpacity>
     )
 }
-
-export default RidioButton

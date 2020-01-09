@@ -6,7 +6,8 @@ import {
     TextInput,
     LayoutAnimation,
     Platform,
-    UIManager
+    UIManager,
+    TextInputProps
 } from 'react-native'
 import isMasked, { clearMaskedValue, setMaxLength } from './masks'
 import propsParser from './propsParser'
@@ -60,7 +61,7 @@ const CustopPreset = {
     }
 }
 
-const TextInputComponent = (props) => {
+export default  TextInputComponent = (props: TextInputProps) => {
     const {
         value,
         onChangeText,
@@ -73,7 +74,9 @@ const TextInputComponent = (props) => {
         disableAnimation,
         IconComponent,
         maskType,
-        maxLength
+        maxLength,
+        onFocus,
+        onBlur
     } = props
 
     let passedProps = propsParser(props)
@@ -85,6 +88,8 @@ const TextInputComponent = (props) => {
 
     const offset = -(placeholderHeight + 2)
     const fucusedOffet = (componentHeight / 2) - (placeholderHeight / 2)
+    const fontSize = style && style.fontSize ? style.fontSize : 14
+    const fontSizeOnFocus = (fontSize - 4) < 4 ? 4 : (fontSize - 4)
 
     useEffect(() => {
         if (Platform.OS == "android" && !disableAnimation) {
@@ -143,8 +148,14 @@ const TextInputComponent = (props) => {
                 value={isMasked(maskType, value)}
                 onChangeText={onChange}
                 style={[styles.textInput, style]}
-                onFocus={() => setFocusedFunc(true)}
-                onBlur={() => setFocusedFunc(false)}
+                onFocus={() => {
+                    setFocusedFunc(true)
+                    onFocus()
+                }}
+                onBlur={() => {
+                    setFocusedFunc(false)
+                    onBlur()
+                }}
                 maxLength={setMaxLength(maskType, maxLength)}
                 {...passedProps}
             />
@@ -157,12 +168,11 @@ const TextInputComponent = (props) => {
                     onLayout={onPlaceholderLayout}
                     style={[styles.placeholder, {
                         color: focused || value ? (focusedPlaceholderTextColor ? focusedPlaceholderTextColor : placeholderTextColor) : placeholderTextColor,
-                        fontSize: focused || value ? 12 : 16
+                        fontSize: focused || value ? fontSizeOnFocus : fontSize
+                        // fontSize: focused || value ? 12 : (style["fontSize"] ? style["fontSize"] : 16) ? так работает?
                     }]}
                 >{placeholder}</Text>
             </View>
         </View>
     )
 }
-
-export default TextInputComponent
