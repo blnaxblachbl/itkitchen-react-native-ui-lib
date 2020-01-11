@@ -206,7 +206,9 @@ Name | Description | Default | Type
 ------|-------------|----------|-----------
 value | value of TextInput component | "" | string
 containerStyle | style of text input container | object | style
+focusedContainerStyle | style of text input container when it focused | object | style
 style | style of TextInput component | object | style
+focusedStyle | style of TextInput component when it focused | object | style
 IconComponent | icon component that will render on left side of input | null | React Component
 iconVisible | the boolean prop that hide or show icon component | false | bool
 disableAnimation | the boolean prop that disable animation | false | bool
@@ -404,7 +406,7 @@ const checkEmail = () => {
 
 return (
     <View style={styles.container}>
-        <TextInput
+        <UI.TextInput
             value={email}
             onChangeText={email => setEmail(email)}
             placeholder="Введите ваше имя"

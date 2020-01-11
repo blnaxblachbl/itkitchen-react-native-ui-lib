@@ -17,7 +17,6 @@ const styles = StyleSheet.create({
     },
     text: {
         color: '#FFFFFF',
-        fontFamily: "GothamPro-Bold",
     },
 })
 

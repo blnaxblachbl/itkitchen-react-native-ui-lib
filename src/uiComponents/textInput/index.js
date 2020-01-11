@@ -61,13 +61,15 @@ const CustopPreset = {
     }
 }
 
-export default TextInputComponent = (props: TextInputProps) => {
+export default TextInputComponent = (props) => {
     const {
         value,
         onChangeText,
         placeholder,
         containerStyle,
+        focusedContainerStyle,
         style,
+        focusedStyle,
         placeholderTextColor,
         focusedPlaceholderTextColor,
         iconVisible,
@@ -76,7 +78,7 @@ export default TextInputComponent = (props: TextInputProps) => {
         maskType,
         maxLength,
         onFocus,
-        onBlur
+        onBlur,
     } = props
 
     let passedProps = propsParser(props)
@@ -127,12 +129,23 @@ export default TextInputComponent = (props: TextInputProps) => {
 
     if (disableAnimation) {
         return (
-            <View style={[styles.container, containerStyle]}>
+            <View
+                onLayout={onLayout}
+                style={[
+                    styles.container,
+                    containerStyle,
+                    focused ? focusedContainerStyle : {}
+                ]}
+            >
                 <TextInput
                     ref={inputRef}
                     value={isMasked(maskType, value)}
                     onChangeText={onChange}
-                    style={[styles.textInput, style]}
+                    style={[
+                        styles.textInput,
+                        style,
+                        focused ? focusedStyle : {}
+                    ]}
                     maxLength={setMaxLength(maskType, maxLength)}
                     {...passedProps}
                 />
@@ -142,12 +155,23 @@ export default TextInputComponent = (props: TextInputProps) => {
     }
 
     return (
-        <View onLayout={onLayout} style={[styles.container, containerStyle]}>
+        <View
+            onLayout={onLayout}
+            style={[
+                styles.container,
+                containerStyle,
+                focused ? focusedContainerStyle : {}
+            ]}
+        >
             <TextInput
                 ref={inputRef}
                 value={isMasked(maskType, value)}
                 onChangeText={onChange}
-                style={[styles.textInput, style]}
+                style={[
+                    styles.textInput,
+                    style,
+                    focused ? focusedStyle : {}
+                ]}
                 onFocus={() => {
                     setFocusedFunc(true)
                     if (onFocus) {
@@ -173,7 +197,6 @@ export default TextInputComponent = (props: TextInputProps) => {
                     style={[styles.placeholder, {
                         color: focused || value ? (focusedPlaceholderTextColor ? focusedPlaceholderTextColor : placeholderTextColor) : placeholderTextColor,
                         fontSize: focused || value ? fontSizeOnFocus : fontSize
-                        // fontSize: focused || value ? 12 : (style["fontSize"] ? style["fontSize"] : 16) ? так работает?
                     }]}
                 >{placeholder}</Text>
             </View>

@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AnimatedHeaderScreen = (props: FlatListProps) => {
+export default AnimatedHeaderScreen = (props) => {
 
     const {
         onScroll,
