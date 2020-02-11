@@ -531,6 +531,9 @@ footerContainerStyle | style of info container on bottom of card | object | styl
                         title={item.title}
                         subTitle={item.subTitle}
                         imageUrl={item.imageUrl}
+                        InfoComponent={
+                            <Text>More info here</Text>
+                        }
                     />
                 ))
             }
