@@ -4,6 +4,9 @@ import TextInput from './textInput'
 import Button from './button'
 import RadioButton from './radioButton'
 import DropDown from './dropDown'
+import Avatar from './avatar'
+import Badge from './badge'
+import Card from './card'
 // import ListModal from './foolScreenAnimationList/list' // old component, maybe need to refactor and publish
 
 export default {
@@ -12,5 +15,8 @@ export default {
     TextInput,
     Button,
     RadioButton,
-    DropDown
+    DropDown,
+    Badge,
+    Avatar,
+    Card
 }

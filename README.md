@@ -82,7 +82,7 @@ enabledBackgroundColor | switch background color when it is on | '#ccc' | string
 disabledBackgroundColor | switch background color when it is off | '#ccc' | string
 onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
 
-- **_ListModal_** - removed. Maybe in the next update we will refactor and refund it.
+<!-- - **_ListModal_** - removed. Maybe in the next update we will refactor and refund it. -->
 
 - **_AnimatedHeaderList_** - is UI component with animated header. This component based on FlatList and support all props of it. 
 
@@ -291,7 +291,7 @@ title | text that will display on right side of button | "" | string
 activeTintColor | color when button is checked | "#494043" | string
 inactiveTontColor | color when button is unchecked | "#494043" | string
 
-- **_Button_** - is UI component of drop down list.
+- **_DropDown_** - is UI component of drop down list.
 
 ```javascript
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
@@ -316,15 +316,13 @@ const [state, setState] = useState("")
 
 return (
     <View style={styles.container}>
-        <DropDown
+        <UI.DropDown
             data={["value 1", "value 2"]}
             value={state}
             placeholder="Select value"
             onDataChange={value => setState(value)}
             style={styles.dropdown}
         />
-        {/* <Text>{state}</Text>
-        </DropDown> */}
     </View>
 )
 ```
@@ -339,6 +337,297 @@ value | value that will display on button | "" | string
 onDataChange | function that call when selected new value | onDataChange={value => {}} | func
 style | style of the component container | object | style
 placeholder | value that will display when "value" property is empty  | "" | string
+
+- **_Avatar_** - is UI component of image for lists to profile screens.
+
+```javascript
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+//...
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        width,
+        alignItems: "center",
+        justifyContent: "center"
+    }
+})
+//...
+
+return (
+    <View style={styles.container}>
+        <UI.Avatar
+            imageUrl="https://thenypost.files.wordpress.com/2019/12/cat.jpg?quality=80&strip=all"
+            nameString="Tit Hardwood"
+            badge={999}
+        />
+        <Text>Tit Hardwood</Text>
+    </View>
+)
+```
+
+<img width="35%" src="./images/avatar.jpg"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+imageUrl | url to image | "" | String
+nameString | string of user name or description | "" | string
+onPress | function that call when avatar pressed | onPress={()=>{}} | func
+badge | used if you need to render badge on avatar | 0 | number
+style | style of the component container | object | style
+imageStyle | style of the image | object | style
+badgeStyle | style of the badge | object | style
+badgeTextStyle | style of the badge | object | style
+
+- **_Badge_** - is UI component used to render a numerical value.
+
+```javascript
+    import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+    //...
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            width,
+            alignItems: "center",
+            justifyContent: "center"
+        }
+    })
+    //...
+    return (
+        <View style={styles.container}>
+            <Badge badge={1} />
+            <Badge badge={12} />
+            <Badge badge={123} />
+        </View>
+    )
+```
+
+<img width="35%" src="./images/badge.jpg"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+badge | used if you need to render badge on avatar | 0 | number
+style | style of the component container | object | style
+textStyle | style of the badge value | object | style
+
+- **_Card_** - is UI component used to render some information.
+
+To use cards you need to install react-native-vector-icons
+```
+npm install react-native-vector-icons
+```
+OR
+```
+yarn react-native-vector-icons
+```
+
+1. **cardType - default**
+
+```javascript
+    import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+    //...
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            width,
+            alignItems: "center",
+            justifyContent: "center"
+        }
+    })
+    //...
+    const arr = new Array(10).fill({
+        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsb3dnwW7TWK8zRGaCQ_ThqeLRWTZKXsWAL5z6rI_9UAwM0NqH',
+        title: "Cat",
+        subTitle: "Sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping"
+    })
+    //...
+    return (
+        <ScrollView
+            style={styles.container}
+            contentContainerStyle={{ alignItems: 'center' }}
+        >
+            {
+                arr.map((item, index) => (
+                    <Card
+                        key={index}
+                        title={item.title}
+                        subTitle={item.subTitle}
+                        imageUrl={item.imageUrl}
+                        like
+                        share
+                        comment
+                        favorite
+                        iconsSize={23}
+                    />
+                ))
+            }
+        </ScrollView>
+    )
+```
+
+<img width="35%" src="./images/card-default.jpg"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+title | title of card | "" | string
+subTitle | subtitle of card | "" | string
+imageUrl | url to image  | "" | string
+like | bool property to show or hide like icon | false | bool
+comment | bool property to show or hide comment icon | false | bool
+favorite | bool property to show or hide favorite icon | false | bool
+share | bool property to show or hide share icon | false | bool
+liked | bool property mark like icon | false | bool
+commented | bool property mark comment icon | false | bool
+favorited | bool property mark favorite icon | false | bool
+shared | bool property mark share icon | false | bool
+iconsSize | size of icons | 22 | number
+onPress | function that call when card pressed | onPress={()=>{}} | func 
+onLikePress| function that call when like icon pressed | onPress={()=>{}} | func
+onCommentPress | function that call when comment icon pressed | onPress={()=>{}} | func 
+onFavoritePress | function that call when favorite icon pressed | onPress={()=>{}} | func 
+onSharePress | function that call when share icon pressed | onPress={()=>{}} | func 
+CustomFooter | Custom component that will render on bottom of card instead of icons | React Component
+actionsColor | color of icons when icon is not marked | "#000000" | string
+altActionsColor | color of icons when icon is marked | "#ff0000" | string
+containerStyle | style of component container | object | style
+imageStyle | style of the image | object | style
+infoContainerStyle | style of info container(title and subtitle) | object | style 
+titleStyle | style of card title | object | style
+subTitleStyle | style of card subtitle | object | style
+footerContainerStyle | style of info container on bottom of card | object | style 
+
+2. **cardType - animated**
+
+```javascript
+    import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+    //...
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            width,
+            alignItems: "center",
+            justifyContent: "center"
+        }
+    })
+    //...
+    const arr = new Array(10).fill({
+        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsb3dnwW7TWK8zRGaCQ_ThqeLRWTZKXsWAL5z6rI_9UAwM0NqH',
+        title: "Cat",
+        subTitle: "Sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping"
+    })
+    //...
+    return (
+        <ScrollView
+            style={styles.container}
+            contentContainerStyle={{ alignItems: 'center' }}
+        >
+            {
+                arr.map((item, index) => (
+                    <Card
+                        cardType="animated"
+                        key={index}
+                        title={item.title}
+                        subTitle={item.subTitle}
+                        imageUrl={item.imageUrl}
+                    />
+                ))
+            }
+        </ScrollView>
+    )
+```
+
+<img width="35%" src="./gifs/animeted-card.gif"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+title | title of card | "" | string
+subTitle | subtitle of card | "" | string
+imageUrl | url to image  | "" | string
+onPress | function that call when card pressed | onPress={()=>{}} | func 
+InfoComponent | Custom component that will render more info opened | React Component
+containerStyle | style of component container | object | style
+titleStyle | style of card title | object | style
+subTitleStyle | style of card subtitle | object | style
+
+3. **cardType - background**
+
+```javascript
+    import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+    //...
+    const styles = StyleSheet.create({
+        container: {
+            flex: 1,
+            width,
+            alignItems: "center",
+            justifyContent: "center"
+        }
+    })
+    //...
+    const arr = new Array(10).fill({
+        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsb3dnwW7TWK8zRGaCQ_ThqeLRWTZKXsWAL5z6rI_9UAwM0NqH',
+        title: "Cat",
+        subTitle: "Sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping"
+    })
+    //...
+    return (
+        <ScrollView
+            style={styles.container}
+            contentContainerStyle={{ alignItems: 'center' }}
+        >
+            {
+                arr.map((item, index) => (
+                    <Card
+                        cardType="background"
+                        key={index}
+                        title={item.title}
+                        subTitle={item.subTitle}
+                        imageUrl={item.imageUrl}
+                        like
+                        share
+                        comment
+                        favorite
+                        iconsSize={23}
+                    />
+                ))
+            }
+        </ScrollView>
+    )
+```
+
+<img width="35%" src="./images/card-background.jpg"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+title | title of card | "" | string
+subTitle | subtitle of card | "" | string
+imageUrl | url to image  | "" | string
+like | bool property to show or hide like icon | false | bool
+comment | bool property to show or hide comment icon | false | bool
+favorite | bool property to show or hide favorite icon | false | bool
+share | bool property to show or hide share icon | false | bool
+liked | bool property mark like icon | false | bool
+commented | bool property mark comment icon | false | bool
+favorited | bool property mark favorite icon | false | bool
+shared | bool property mark share icon | false | bool
+iconsSize | size of icons | 22 | number
+onPress | function that call when card pressed | onPress={()=>{}} | func 
+onLikePress| function that call when like icon pressed | onPress={()=>{}} | func
+onCommentPress | function that call when comment icon pressed | onPress={()=>{}} | func 
+onFavoritePress | function that call when favorite icon pressed | onPress={()=>{}} | func 
+onSharePress | function that call when share icon pressed | onPress={()=>{}} | func 
+CustomFooter | Custom component that will render on bottom of card instead of icons | React Component
+actionsColor | color of icons when icon is not marked | "#000000" | string
+altActionsColor | color of icons when icon is marked | "#ff0000" | string
+containerStyle | style of component container | object | style
+imageStyle | style of the image | object | style
+infoContainerStyle | style of info container(title and subtitle) | object | style 
+titleStyle | style of card title | object | style
+subTitleStyle | style of card subtitle | object | style
+footerContainerStyle | style of info container on bottom of card | object | style 
 
 ### Functions
 - **_normalize_** - is a function which normalizes the font size of the text relative to the screen size.
