@@ -25,9 +25,9 @@ const styles = StyleSheet.create({
         shadowColor: '#000000',
         shadowOffset: {
             width: 0,
-            height: 3
+            height: 2
         },
-        shadowRadius: 5,
+        shadowRadius: 3,
         shadowOpacity: 1.0,
         borderColor: "#f1f1f1",
         position: "absolute",
@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
         shadowColor: '#000000',
         shadowOffset: {
             width: 0,
-            height: 3
+            height: 2
         },
-        shadowRadius: 5,
+        shadowRadius: 3,
         shadowOpacity: 1.0,
         borderColor: "#f1f1f1",
         zIndex: 1
@@ -67,9 +67,9 @@ const styles = StyleSheet.create({
         shadowColor: '#000000',
         shadowOffset: {
             width: 0,
-            height: 3
+            height: 2
         },
-        shadowRadius: 5,
+        shadowRadius: 3,
         shadowOpacity: 1.0,
         borderColor: "#f1f1f1",
         zIndex: 3,

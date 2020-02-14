@@ -413,13 +413,13 @@ textStyle | style of the badge value | object | style
 
 - **_Card_** - is UI component used to render some information.
 
-To use cards you need to install react-native-vector-icons
+To use cards you need to install [react-native-vector-icons](https://www.npmjs.com/package/react-native-vector-icons)
 ```
 npm install react-native-vector-icons
 ```
 OR
 ```
-yarn react-native-vector-icons
+yarn add react-native-vector-icons
 ```
 
 1. **cardType - default**
@@ -449,7 +449,7 @@ yarn react-native-vector-icons
         >
             {
                 arr.map((item, index) => (
-                    <Card
+                    <UI.Card
                         key={index}
                         title={item.title}
                         subTitle={item.subTitle}
@@ -525,7 +525,7 @@ footerContainerStyle | style of info container on bottom of card | object | styl
         >
             {
                 arr.map((item, index) => (
-                    <Card
+                    <UI.Card
                         cardType="animated"
                         key={index}
                         title={item.title}
@@ -582,7 +582,7 @@ subTitleStyle | style of card subtitle | object | style
         >
             {
                 arr.map((item, index) => (
-                    <Card
+                    <UI.Card
                         cardType="background"
                         key={index}
                         title={item.title}
