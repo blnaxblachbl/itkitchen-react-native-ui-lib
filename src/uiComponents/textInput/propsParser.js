@@ -4,6 +4,8 @@ export default (props) => {
         Object.keys(props).map(key => {
             // console.log(key)
             switch (key) {
+                case "value":
+                    break;
                 case "onChangeText":
                     break;
                 case "containerStyle":
