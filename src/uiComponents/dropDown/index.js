@@ -80,7 +80,7 @@ export default DropDown = ({ data = [], children, onDataChange = () => { }, valu
 
     const openMenu = async () => {
         let position = await measure()
-        let inverted = position.y > height / 2 ? true : false
+        let inverted = position.y - (position.height / 2) > height / 2 ? true : false
         setState(prev => {
             return {
                 ...prev,
@@ -113,7 +113,7 @@ export default DropDown = ({ data = [], children, onDataChange = () => { }, valu
             }
         } else {
             return {
-                bottom: height - state.position.y - state.position.height + 20,
+                bottom: height - state.position.y + state.position.height + 15,
             }
         }
     }
