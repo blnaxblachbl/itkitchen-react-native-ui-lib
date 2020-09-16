@@ -37,10 +37,10 @@ const styles = StyleSheet.create({
 })
 
 const Avatar = ({
-    imageUrl,
-    nameString,
-    onPress,
-    badge,
+    imageUrl = "",
+    nameString = "",
+    onPress = () => { },
+    badge = 0,
 
     style,
     imageStyle,

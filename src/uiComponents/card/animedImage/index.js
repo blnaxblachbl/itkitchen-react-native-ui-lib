@@ -94,7 +94,7 @@ const AnimaedImage = ({
     imageUrl = "",
     subTitle = "",
 
-    onPress,
+    onPress = () => { },
 
     InfoComponent,
 

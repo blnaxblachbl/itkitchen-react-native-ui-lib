@@ -140,7 +140,7 @@ const AnimatedHeader = props => {
     )
 
     return (
-        <UI.AnimatedHeaderScreen
+        <UI.AnimatedHeaderList
             data={orders}
             style={styles.container}
             renderHeader={renderHeader}
@@ -213,7 +213,7 @@ IconComponent | icon component that will render on left side of input | null | R
 iconVisible | the boolean prop that hide or show icon component | false | bool
 disableAnimation | the boolean prop that disable animation | false | bool
 focusedPlaceholderTextColor | if lable color shuld change on focus, pass your color to this props | same with placeholderTextColor | string
-maskType | type of text input mask. On this time that props get only one mask - "mobile-phone". Masked value - "+7 (123) 456 78 90" | "" | string
+<!-- maskType | type of text input mask. On this time that props get only one mask - "mobile-phone". Masked value - "+7 (123) 456 78 90" | "" | string -->
 and all TextInput component props |  |  | any
 
 - **_Button_** - is UI component of button.
@@ -258,14 +258,14 @@ const [value1, setValue1] = useState(false)
 //...
 return (
     <View style={styles.container}>
-        <UI.Radio
+        <UI.RadioButton
             value={value}
             title="Title"
             onPress={() => setValue(!value)}
             activeTintColor="red"
             inactiveTontColor="black"
         />
-        <UI.Radio
+        <UI.RadioButton
             value={value1}
             title="Title 1"
             onPress={() => setValue1(!value1)}
@@ -314,10 +314,13 @@ const styles = StyleSheet.create({
 //...
 const [state, setState] = useState("")
 
+const stringData = ["value 1", "value 2"]
+const odjData = [{value: 1, label: "value 1"}, {value: 2, label: "value 2"}]
+
 return (
     <View style={styles.container}>
         <UI.DropDown
-            data={["value 1", "value 2"]}
+            data={stringData}
             value={state}
             placeholder="Select value"
             onDataChange={value => setState(value)}
@@ -395,9 +398,9 @@ badgeTextStyle | style of the badge | object | style
     //...
     return (
         <View style={styles.container}>
-            <Badge badge={1} />
-            <Badge badge={12} />
-            <Badge badge={123} />
+            <UI.Badge badge={1} />
+            <UI.Badge badge={12} />
+            <UI.Badge badge={123} />
         </View>
     )
 ```

@@ -20,7 +20,12 @@ const styles = StyleSheet.create({
     },
     container: {
         zIndex: 997,
-        width: "100%"
+        width: "100%",
+        maxWidth: width * 0.9,
+        borderRadius: 5,
+        borderColor: "grey",
+        borderWidth: 1,
+        padding: 5
     },
     itemContainer: {
         width: "95%",
@@ -54,7 +59,7 @@ const initState = {
     position: { x: 0, y: 0, height: 0, width: 0 }
 }
 
-export default DropDown = ({ data, children, onDataChange, value, style, placeholder }) => {
+export default DropDown = ({ data = [], children, onDataChange = () => { }, value = "", style, placeholder = "select" }) => {
     const menuContioner = useRef(null);
     const [state, setState] = useState(initState)
 
@@ -88,8 +93,8 @@ export default DropDown = ({ data, children, onDataChange, value, style, placeho
     }
 
     const closeMenu = (item) => {
-        let data = typeof (item) == "string" ? item : item.name
-        setTimeout(() => { onDataChange(data) }, 0)
+        // let data = typeof (item) == "string" ? item : item.value
+        setTimeout(() => { onDataChange(item) }, 0)
         setState(prev => {
             return {
                 ...prev,
@@ -170,7 +175,7 @@ export default DropDown = ({ data, children, onDataChange, value, style, placeho
                                         onPress={() => closeMenu(item)}
                                         style={styles.itemContainer}
                                     >
-                                        <Text style={styles.itemText}>{typeof (item) == "string" ? item : item.name}</Text>
+                                        <Text style={styles.itemText}>{typeof (item) == "string" ? item : item.label}</Text>
                                     </TouchableOpacity>
                                 ))
                             }
@@ -204,7 +209,7 @@ export default DropDown = ({ data, children, onDataChange, value, style, placeho
                     onPress={openMenu}
                 >
                     {value ? (
-                        <Text style={[styles.text, { color: "#2c2a29" }]}>{value}</Text>
+                        <Text style={[styles.text, { color: "#2c2a29" }]}>{typeof (value) === "string" ? value : value.label}</Text>
                     ) : (
                             <Text style={styles.text}>{placeholder}</Text>
                         )}

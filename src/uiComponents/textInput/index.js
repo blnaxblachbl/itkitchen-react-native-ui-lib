@@ -9,7 +9,7 @@ import {
     UIManager,
     TextInputProps
 } from 'react-native'
-import isMasked, { clearMaskedValue, setMaxLength } from './masks'
+// import isMasked, { clearMaskedValue, setMaxLength } from './masks'
 import propsParser from './propsParser'
 
 const styles = StyleSheet.create({
@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingHorizontal: 0,
         paddingVertical: 10,
-        fontSize: 16
+        fontSize: 16,
+        color: "#000000",
     },
     placeholder: {
         fontSize: 16,
@@ -64,21 +65,21 @@ const CustopPreset = {
 export default TextInputComponent = (props) => {
     const {
         value,
-        onChangeText,
+        onChangeText = () => { },
         placeholder,
         containerStyle,
         focusedContainerStyle,
         style,
         focusedStyle,
-        placeholderTextColor,
-        focusedPlaceholderTextColor,
-        iconVisible,
-        disableAnimation,
+        placeholderTextColor = props.style && props.style.color ? props.style.color : "#A2A2A2",
+        focusedPlaceholderTextColor = "#A2A2A2",
+        iconVisible = true,
+        disableAnimation = false,
         IconComponent,
         maskType,
         maxLength,
-        onFocus,
-        onBlur,
+        onFocus = () => { },
+        onBlur = () => { },
     } = props
 
     let passedProps = propsParser(props)
@@ -123,8 +124,8 @@ export default TextInputComponent = (props) => {
     }
 
     const onChange = (value) => {
-        let clearedValue = clearMaskedValue(maskType, value)
-        onChangeText(clearedValue)
+        // let clearedValue = clearMaskedValue(maskType, value)
+        onChangeText(value)
     }
 
     if (disableAnimation) {
@@ -139,14 +140,15 @@ export default TextInputComponent = (props) => {
             >
                 <TextInput
                     ref={inputRef}
-                    value={isMasked(maskType, value)}
+                    // value={isMasked(maskType, value)}
+                    value={value}
                     onChangeText={onChange}
                     style={[
                         styles.textInput,
                         style,
                         focused ? focusedStyle : {}
                     ]}
-                    maxLength={setMaxLength(maskType, maxLength)}
+                    // maxLength={setMaxLength(maskType, maxLength)}
                     {...passedProps}
                 />
                 {renderIcon()}
@@ -165,7 +167,8 @@ export default TextInputComponent = (props) => {
         >
             <TextInput
                 ref={inputRef}
-                value={isMasked(maskType, value)}
+                // value={isMasked(maskType, value)}
+                value={value}
                 onChangeText={onChange}
                 style={[
                     styles.textInput,
@@ -184,7 +187,7 @@ export default TextInputComponent = (props) => {
                         onBlur()
                     }
                 }}
-                maxLength={setMaxLength(maskType, maxLength)}
+                // maxLength={setMaxLength(maskType, maxLength)}
                 {...passedProps}
             />
             {renderIcon()}

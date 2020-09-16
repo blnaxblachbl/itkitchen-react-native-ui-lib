@@ -3,8 +3,11 @@ import {
     TouchableOpacity,
     StyleSheet,
     Text,
-    ActivityIndicator
+    ActivityIndicator,
+    Dimensions
 } from 'react-native'
+
+const { width } = Dimensions.get("window")
 
 const styles = StyleSheet.create({
     container: {
@@ -14,6 +17,7 @@ const styles = StyleSheet.create({
         justifyContent: "center",
         width: "100%",
         paddingVertical: 13,
+        maxWidth: width * 0.9
     },
     text: {
         color: '#FFFFFF',
@@ -22,16 +26,16 @@ const styles = StyleSheet.create({
 
 export default ({
     style,
-    onPress,
+    onPress = () => { },
     activeOpacity,
-    text,
+    text = "Button",
     loading,
     textStyle,
-    loadingColor,
+    loadingColor = "#ffffff",
 }) => {
 
     const hundlePress = () => {
-        if (!loading && onPress) {
+        if (!loading) {
             onPress()
         }
     }
@@ -49,7 +53,7 @@ export default ({
                         size='small'
                         color={loadingColor ? loadingColor : "#ffffff"}
                     />
-                ) : <Text numberOfLines={1} style={[styles.text, textStyle]}>{text ? text : "ItKitchenButton"}</Text>
+                ) : <Text numberOfLines={1} style={[styles.text, textStyle]}>{text}</Text>
             }
         </TouchableOpacity>
     )

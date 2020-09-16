@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 const Badge = ({
     style,
     textStyle,
-    badge
+    badge = 0
 }) => {
     if (badge && typeof (badge) == "number") {
         return (

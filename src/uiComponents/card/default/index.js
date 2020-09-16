@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     ActivityIndicator
 } from 'react-native'
-import Ioncicons from 'react-native-vector-icons/Ionicons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 const styles = StyleSheet.create({
@@ -58,23 +58,23 @@ const Default = ({
     imageUrl = "",
     subTitle = "",
 
-    like,
-    comment,
-    favorite,
-    share,
+    like = false,
+    comment = false,
+    favorite = false,
+    share = false,
 
-    liked,
-    commented,
-    favorited,
-    shared,
+    liked = false,
+    commented = false,
+    favorited = false,
+    shared = false,
 
     iconsSize = 22,
 
-    onPress,
-    onLikePress,
-    onCommentPress,
-    onFavoritePress,
-    onSharePress,
+    onPress = () => { },
+    onLikePress = () => { },
+    onCommentPress = () => { },
+    onFavoritePress = () => { },
+    onSharePress = () => { },
 
     CustomFooter,
 
@@ -148,8 +148,8 @@ const Default = ({
                         {
                             like ? (
                                 <TouchableOpacity onPress={onLikePress} activeOpacity={0.2}>
-                                    <Ioncicons
-                                        name={liked ? "ios-heart" : "ios-heart-empty"}
+                                    <Ionicons
+                                        name={liked ? "ios-heart" : "ios-heart-outline"}
                                         size={iconsSize}
                                         style={{ marginRight: 15 }}
                                         color={!liked ? actionsColor : altActionsColor}
@@ -172,8 +172,8 @@ const Default = ({
                         {
                             share ? (
                                 <TouchableOpacity onPress={onSharePress} activeOpacity={0.2}>
-                                    <Ioncicons
-                                        name="md-share-alt"
+                                    <Ionicons
+                                        name="md-share-social-outline"
                                         size={iconsSize}
                                         style={{ marginRight: 15 }}
                                         color={!shared ? actionsColor : altActionsColor}
@@ -185,8 +185,8 @@ const Default = ({
                     {
                         favorite ? (
                             <TouchableOpacity onPress={onFavoritePress} activeOpacity={0.2}>
-                                <FontAwesome
-                                    name={favorited ? "bookmark" : "bookmark-o"}
+                                <Ionicons
+                                    name={favorited ? "bookmark" : "bookmark-outline"}
                                     size={iconsSize - 2 > 0 ? iconsSize - 2 : 0}
                                     color={!favorited ? actionsColor : altActionsColor}
                                 />

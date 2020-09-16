@@ -20,8 +20,6 @@ export default (props) => {
                     break;
                 case "maskType":
                     break;
-                case "maxLength":
-                    break;
                 default: {
                     let obj = {}
                     obj[key] = props[key]
@@ -55,8 +53,6 @@ export default (props) => {
                 case "IconComponent":
                     break;
                 case "maskType":
-                    break;
-                case "maxLength":
                     break;
                 case "onFocus":
                     break;
