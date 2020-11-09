@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect, useRef, forwardRef } from 'react'
 import {
     View,
     StyleSheet,
@@ -62,7 +62,7 @@ const CustopPreset = {
     }
 }
 
-export default TextInputComponent = (props) => {
+export default TextInputComponent = forwardRef((props, ref) => {
     const {
         value,
         onChangeText = () => { },
@@ -87,7 +87,7 @@ export default TextInputComponent = (props) => {
     const [focused, setFocused] = useState(false)
     const [componentHeight, setComponentHeight] = useState(0)
     const [placeholderHeight, setPlaceholderHeight] = useState(1)
-    const inputRef = useRef(null)
+    let inputRef = ref ? ref : useRef(null)
 
     const offset = -(placeholderHeight + 2)
     const fucusedOffet = (componentHeight / 2) - (placeholderHeight / 2)
@@ -139,7 +139,7 @@ export default TextInputComponent = (props) => {
                 ]}
             >
                 <TextInput
-                    ref={inputRef}
+                    ref={ref ? ref : inputRef}
                     // value={isMasked(maskType, value)}
                     value={value}
                     onChangeText={onChange}
@@ -166,7 +166,7 @@ export default TextInputComponent = (props) => {
             ]}
         >
             <TextInput
-                ref={inputRef}
+                ref={ref ? ref : inputRef}
                 // value={isMasked(maskType, value)}
                 value={value}
                 onChangeText={onChange}
@@ -205,4 +205,4 @@ export default TextInputComponent = (props) => {
             </View>
         </View>
     )
-}
+})
