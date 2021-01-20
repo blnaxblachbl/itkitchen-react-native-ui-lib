@@ -113,7 +113,7 @@ export default DropDown = ({ data = [], children, onDataChange = () => { }, valu
             }
         } else {
             return {
-                bottom: height - state.position.y + state.position.height + 15,
+                bottom: height - state.position.y + 2,
             }
         }
     }

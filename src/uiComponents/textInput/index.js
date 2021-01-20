@@ -87,7 +87,7 @@ export default TextInputComponent = forwardRef((props, ref) => {
     const [focused, setFocused] = useState(false)
     const [componentHeight, setComponentHeight] = useState(0)
     const [placeholderHeight, setPlaceholderHeight] = useState(1)
-    let inputRef = ref ? ref : useRef(null)
+    let inputRef = ref ? ref : useRef()
 
     const offset = -(placeholderHeight + 2)
     const fucusedOffet = (componentHeight / 2) - (placeholderHeight / 2)

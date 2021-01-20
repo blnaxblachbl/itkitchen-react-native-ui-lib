@@ -32,6 +32,7 @@ export default ({
     loading,
     textStyle,
     loadingColor = "#ffffff",
+    children
 }) => {
 
     const hundlePress = () => {
@@ -53,7 +54,7 @@ export default ({
                         size='small'
                         color={loadingColor ? loadingColor : "#ffffff"}
                     />
-                ) : <Text numberOfLines={1} style={[styles.text, textStyle]}>{text}</Text>
+                ) : children ? children : <Text numberOfLines={1} style={[styles.text, textStyle]}>{text}</Text>
             }
         </TouchableOpacity>
     )
