@@ -339,6 +339,11 @@ data | array of strings that will display on drop down list | [] | array
 value | value that will display on button | "" | string
 onDataChange | function that call when selected new value | onDataChange={value => {}} | func
 style | style of the component container | object | style
+textStyle | style of the component text | object | style
+placeholderTextStyle | style of the component placeholder | object | style
+menuStyle | style of the menu container | object | style
+itemStyle | style of the menu item container | object | style
+itemTextStyle | style of the menu item text | object | style
 placeholder | value that will display when "value" property is empty  | "" | string
 
 - **_Avatar_** - is UI component of image for lists to profile screens.

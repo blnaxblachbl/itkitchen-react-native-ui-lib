@@ -3,11 +3,8 @@ import {
     TouchableOpacity,
     StyleSheet,
     Text,
-    ActivityIndicator,
-    Dimensions
+    ActivityIndicator
 } from 'react-native'
-
-const { width } = Dimensions.get("window")
 
 const styles = StyleSheet.create({
     container: {
@@ -16,8 +13,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: "center",
         width: "100%",
-        paddingVertical: 13,
-        maxWidth: width * 0.9
+        paddingVertical: 13
     },
     text: {
         color: '#FFFFFF',

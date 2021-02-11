@@ -1,6 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react'
+import React, { useState, useRef } from 'react'
 import {
-    View,
     Dimensions,
     Text,
     StyleSheet,
@@ -9,14 +8,12 @@ import {
     Modal,
     Platform
 } from 'react-native'
-// import DeviceInfo from 'react-native-device-info'
 
 const { width, height } = Dimensions.get("window")
 
 const styles = StyleSheet.create({
     text: {
         color: "#959595",
-        marginVertical: Platform.OS === 'ios' ? 0 : 4,
     },
     container: {
         zIndex: 997,
@@ -28,26 +25,38 @@ const styles = StyleSheet.create({
         padding: 5
     },
     itemContainer: {
-        width: "95%",
-        justifyContent: "center",
         zIndex: 999,
-        width: "100%"
+        width: "100%",
+        justifyContent: "center",
+        paddingHorizontal: 5,
     },
     itemText: {
         paddingVertical: 15,
-        paddingHorizontal: 5,
         color: "#2c2a29",
         fontSize: Platform.OS === 'ios' ? 16 : 14,
     },
     itemsList: {
         position: "absolute",
         zIndex: 998,
-        elevation: 7,
+        ...Platform.select({
+            android: {
+                elevation: 7,
+            },
+            ios: {
+                shadowOffset: { width: 2, height: 2 },
+                shadowColor: 'black',
+                shadowOpacity: 0.5
+            }
+        }),
         borderRadius: 5,
         borderColor: "#959595",
         backgroundColor: "#ffffff",
         maxHeight: (height / 2) - 50,
         minHeight: 40,
+    },
+    view: {
+        flex: 1,
+        backgroundColor: "rgba(0,0,0,0)",
     }
 })
 
@@ -59,18 +68,22 @@ const initState = {
     position: { x: 0, y: 0, height: 0, width: 0 }
 }
 
-export default DropDown = ({ data = [], children, onDataChange = () => { }, value = "", style, placeholder = "select" }) => {
+export default DropDown = ({
+    data = [],
+    children,
+    onDataChange = () => { },
+    value = "",
+    placeholder = "select",
+    style,
+    menuStyle = {},
+    menuContentStyle = {},
+    itemStyle = {},
+    itemTextStyle = {},
+    textStyle = {},
+    placeholderTextStyle = {}
+}) => {
     const menuContioner = useRef(null);
     const [state, setState] = useState(initState)
-
-    // useEffect(() => {
-    //     setState(prev => {
-    //         return {
-    //             ...prev,
-    //             menuData: data
-    //         }
-    //     })
-    // }, [data])
 
     const measure = () => new Promise(
         resolve => menuContioner.current.measureInWindow((x, y, width, height) => resolve({
@@ -93,7 +106,6 @@ export default DropDown = ({ data = [], children, onDataChange = () => { }, valu
     }
 
     const closeMenu = (item) => {
-        // let data = typeof (item) == "string" ? item : item.value
         setTimeout(() => { onDataChange(item) }, 0)
         setState(prev => {
             return {
@@ -129,19 +141,7 @@ export default DropDown = ({ data = [], children, onDataChange = () => { }, valu
                 >
                     <TouchableOpacity
                         activeOpacity={1}
-                        style={Platform.select({
-                            android: {
-                                flex: 1,
-                                backgroundColor: "rgba(0,0,0,0)",
-                            },
-                            ios: {
-                                flex: 1,
-                                backgroundColor: "rgba(0,0,0,0)",
-                                shadowOffset: { width: 2, height: 2 },
-                                shadowColor: 'black',
-                                shadowOpacity: 0.5,
-                            }
-                        })}
+                        style={styles.view}
                         onPress={() => {
                             setState(prev => {
                                 return {
@@ -157,15 +157,19 @@ export default DropDown = ({ data = [], children, onDataChange = () => { }, valu
                         <ScrollView
                             style={[
                                 styles.itemsList,
+                                menuStyle,
                                 {
                                     width: state.menuWidth - (children ? 30 : 0),
                                     left: children ? 15 : state.position.x
                                 },
                                 offsetFunc()
                             ]}
-                            contentContainerStyle={{
-                                alignItems: "center"
-                            }}
+                            contentContainerStyle={[
+                                menuContentStyle,
+                                {
+                                    alignItems: "flex-start"
+                                }
+                            ]}
                         >
                             {
                                 data.map((item, index) => (
@@ -173,9 +177,9 @@ export default DropDown = ({ data = [], children, onDataChange = () => { }, valu
                                         key={index}
                                         activeOpacity={0.6}
                                         onPress={() => closeMenu(item)}
-                                        style={styles.itemContainer}
+                                        style={[styles.itemContainer, itemStyle]}
                                     >
-                                        <Text style={styles.itemText}>{typeof (item) == "string" ? item : item.label}</Text>
+                                        <Text numberOfLines={2} style={[styles.itemText, itemTextStyle]}>{typeof (item) == "string" ? item : item.label}</Text>
                                     </TouchableOpacity>
                                 ))
                             }
@@ -209,9 +213,9 @@ export default DropDown = ({ data = [], children, onDataChange = () => { }, valu
                     onPress={openMenu}
                 >
                     {value ? (
-                        <Text style={[styles.text, { color: "#2c2a29" }]}>{typeof (value) === "string" ? value : value.label}</Text>
+                        <Text numberOfLines={1} style={[styles.text, textStyle, { color: "#2c2a29" }]}>{typeof (value) === "string" ? value : value.label}</Text>
                     ) : (
-                            <Text style={styles.text}>{placeholder}</Text>
+                            <Text numberOfLines={1} style={[styles.text, placeholderTextStyle]}>{placeholder}</Text>
                         )}
                 </TouchableOpacity>
             )
