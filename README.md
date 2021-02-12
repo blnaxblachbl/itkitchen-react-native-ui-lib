@@ -209,11 +209,12 @@ containerStyle | style of text input container | object | style
 focusedContainerStyle | style of text input container when it focused | object | style
 style | style of TextInput component | object | style
 focusedStyle | style of TextInput component when it focused | object | style
-IconComponent | icon component that will render on left side of input | null | React Component
-iconVisible | the boolean prop that hide or show icon component | false | bool
+IconComponent | icon component that will render on right side of input | null | React Component
+iconVisible | the boolean prop that hide or show right icon component | false | bool
+LeftIconComponent | icon component that will render on left side of input | null | React Component
+leftIconVisible | the boolean prop that hide or show left icon component | false | bool
 disableAnimation | the boolean prop that disable animation | false | bool
 focusedPlaceholderTextColor | if lable color shuld change on focus, pass your color to this props | same with placeholderTextColor | string
-maskType | this props was deleted | doesn't exist | doesn't exist
 and all TextInput component props |  |  | any
 
 - **_Button_** - is UI component of button.
@@ -419,7 +420,7 @@ badge | used if you need to render badge on avatar | 0 | number
 style | style of the component container | object | style
 textStyle | style of the badge value | object | style
 
-- **_Card_** - is UI component used to render some information.
+- **_Card_** - is UI component used to render some information. (deprecated from 1.3.6)
 
 To use cards you need to install [react-native-vector-icons](https://www.npmjs.com/package/react-native-vector-icons)
 ```

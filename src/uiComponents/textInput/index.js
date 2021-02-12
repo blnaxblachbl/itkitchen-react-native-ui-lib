@@ -6,11 +6,173 @@ import {
     TextInput,
     LayoutAnimation,
     Platform,
-    UIManager,
-    TextInputProps
+    UIManager
 } from 'react-native'
-// import isMasked, { clearMaskedValue, setMaxLength } from './masks'
-import propsParser from './propsParser'
+
+const CustopPreset = {
+    duration: 500,
+    create: {
+        type: LayoutAnimation.Types.spring,
+        property: LayoutAnimation.Properties.scaleXY,
+        springDamping: 1
+    },
+    update: {
+        type: LayoutAnimation.Types.spring,
+        property: LayoutAnimation.Properties.scaleXY,
+        springDamping: 1
+    },
+    delete: {
+        type: LayoutAnimation.Types.spring,
+        property: LayoutAnimation.Properties.scaleXY,
+        springDamping: 1
+    }
+}
+
+const TextInputComponent = forwardRef((props, ref) => {
+    const {
+        value,
+        placeholder,
+        containerStyle,
+        focusedContainerStyle,
+        style,
+        focusedStyle,
+        placeholderTextColor = props.style && props.style.color ? props.style.color : "#A2A2A2",
+        focusedPlaceholderTextColor = "#A2A2A2",
+        iconVisible = true,
+        leftIconVisible = true,
+        disableAnimation = false,
+        IconComponent,
+        LeftIconComponent,
+        onFocus = () => { },
+        onBlur = () => { },
+    } = props
+
+    const [focused, setFocused] = useState(false)
+    const [componentHeight, setComponentHeight] = useState(0)
+    const [placeholderHeight, setPlaceholderHeight] = useState(1)
+    const [leftOffset, setLeftOffset] = useState(0)
+    let inputRef = ref ? ref : useRef()
+
+    const offset = -(placeholderHeight + 2)
+    const fucusedOffet = (componentHeight / 2) - (placeholderHeight / 2)
+    const fontSize = style && style.fontSize ? style.fontSize : 16
+    const fontSizeOnFocus = (fontSize - 4) < 4 ? 4 : (fontSize - 4)
+
+    useEffect(() => {
+        if (Platform.OS == "android" && !disableAnimation) {
+            UIManager.setLayoutAnimationEnabledExperimental(true)
+        }
+    }, [disableAnimation])
+
+    const onLayout = ({ nativeEvent }) => {
+        const { x, y, width, height } = nativeEvent.layout
+        setComponentHeight(height)
+    }
+
+    const onLeftLayout = ({ nativeEvent }) => {
+        const { x, y, width, height } = nativeEvent.layout
+        setLeftOffset(width + 5)
+    }
+
+    const onPlaceholderLayout = ({ nativeEvent }) => {
+        const { x, y, width, height } = nativeEvent.layout
+        setPlaceholderHeight(height)
+    }
+
+    const setFocusedFunc = (focus) => {
+        LayoutAnimation.configureNext(CustopPreset)
+        setFocused(focus)
+    }
+
+    const renderIcon = () => {
+        if (iconVisible && IconComponent) {
+            return IconComponent
+        }
+        return null
+    }
+
+    const renderLeftIcon = () => {
+        if (leftIconVisible && LeftIconComponent) {
+            const Icon = React.cloneElement(LeftIconComponent, { onLayout: onLeftLayout })
+            return Icon
+        }
+        return null
+    }
+
+    if (disableAnimation) {
+        return (
+            <View
+                onLayout={onLayout}
+                style={[
+                    styles.container,
+                    containerStyle,
+                    focused ? focusedContainerStyle : {}
+                ]}
+            >
+                {renderLeftIcon()}
+                <TextInput
+                    {...props}
+                    ref={ref ? ref : inputRef}
+                    style={[
+                        styles.textInput,
+                        style,
+                        focused ? focusedStyle : {}
+                    ]}
+                />
+                {renderIcon()}
+            </View>
+        )
+    }
+
+    return (
+        <View
+            onLayout={onLayout}
+            style={[
+                styles.container,
+                containerStyle,
+                focused ? focusedContainerStyle : {}
+            ]}
+        >
+            {renderLeftIcon()}
+            <TextInput
+                {...props}
+                ref={ref ? ref : inputRef}
+                style={[
+                    styles.textInput,
+                    style,
+                    focused ? focusedStyle : {}
+                ]}
+                onFocus={() => {
+                    setFocusedFunc(true)
+                    if (onFocus) {
+                        onFocus()
+                    }
+                }}
+                onBlur={() => {
+                    setFocusedFunc(false)
+                    if (onBlur) {
+                        onBlur()
+                    }
+                }}
+                placeholder={undefined}
+            />
+            {renderIcon()}
+            <View style={[styles.placeholderContainer, {
+                top: focused || value ? offset : fucusedOffet,
+                left: focused || value ? 0 : leftOffset
+            }]}>
+                <Text
+                    onPress={() => inputRef.current.focus()}
+                    onLayout={onPlaceholderLayout}
+                    style={[styles.placeholder, {
+                        color: focused || value ? (focusedPlaceholderTextColor ? focusedPlaceholderTextColor : placeholderTextColor) : placeholderTextColor,
+                        fontSize: focused || value ? fontSizeOnFocus : fontSize
+                    }]}
+                >{placeholder}</Text>
+            </View>
+        </View>
+    )
+})
 
 const styles = StyleSheet.create({
     container: {
@@ -30,179 +192,16 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         paddingHorizontal: 0,
         paddingVertical: 10,
-        fontSize: 16,
         color: "#000000",
     },
     placeholder: {
-        fontSize: 16,
         color: "#A2A2A2",
     },
     placeholderContainer: {
         position: "absolute",
         marginHorizontal: 10,
+        justifyContent: 'center'
     }
 })
 
-const CustopPreset = {
-    duration: 500,
-    create: {
-        type: LayoutAnimation.Types.spring,
-        property: LayoutAnimation.Properties.scaleXY,
-        springDamping: 0.6
-    },
-    update: {
-        type: LayoutAnimation.Types.spring,
-        property: LayoutAnimation.Properties.scaleXY,
-        springDamping: 0.6
-    },
-    delete: {
-        type: LayoutAnimation.Types.spring,
-        property: LayoutAnimation.Properties.scaleXY,
-        springDamping: 0.6
-    }
-}
-
-export default TextInputComponent = forwardRef((props, ref) => {
-    const {
-        value,
-        onChangeText = () => { },
-        placeholder,
-        containerStyle,
-        focusedContainerStyle,
-        style,
-        focusedStyle,
-        placeholderTextColor = props.style && props.style.color ? props.style.color : "#A2A2A2",
-        focusedPlaceholderTextColor = "#A2A2A2",
-        iconVisible = true,
-        disableAnimation = false,
-        IconComponent,
-        maskType,
-        maxLength,
-        onFocus = () => { },
-        onBlur = () => { },
-    } = props
-
-    let passedProps = propsParser(props)
-
-    const [focused, setFocused] = useState(false)
-    const [componentHeight, setComponentHeight] = useState(0)
-    const [placeholderHeight, setPlaceholderHeight] = useState(1)
-    let inputRef = ref ? ref : useRef()
-
-    const offset = -(placeholderHeight + 2)
-    const fucusedOffet = (componentHeight / 2) - (placeholderHeight / 2)
-    const fontSize = style && style.fontSize ? style.fontSize : 14
-    const fontSizeOnFocus = (fontSize - 4) < 4 ? 4 : (fontSize - 4)
-
-    useEffect(() => {
-        if (Platform.OS == "android" && !disableAnimation) {
-            UIManager.setLayoutAnimationEnabledExperimental(true)
-        }
-    }, [disableAnimation])
-
-    const onLayout = ({ nativeEvent }) => {
-        const { x, y, width, height } = nativeEvent.layout
-        setComponentHeight(height)
-    }
-
-    const onPlaceholderLayout = ({ nativeEvent }) => {
-        const { x, y, width, height } = nativeEvent.layout
-        setPlaceholderHeight(height)
-    }
-
-    const setFocusedFunc = (focus) => {
-        LayoutAnimation.configureNext(CustopPreset)
-        setFocused(focus)
-    }
-
-    const renderIcon = () => {
-        if (iconVisible) {
-            return IconComponent ? IconComponent : null
-        } else {
-            return null
-        }
-    }
-
-    const onChange = (value) => {
-        // let clearedValue = clearMaskedValue(maskType, value)
-        onChangeText(value)
-    }
-
-    if (disableAnimation) {
-        return (
-            <View
-                onLayout={onLayout}
-                style={[
-                    styles.container,
-                    containerStyle,
-                    focused ? focusedContainerStyle : {}
-                ]}
-            >
-                <TextInput
-                    ref={ref ? ref : inputRef}
-                    // value={isMasked(maskType, value)}
-                    value={value}
-                    onChangeText={onChange}
-                    style={[
-                        styles.textInput,
-                        style,
-                        focused ? focusedStyle : {}
-                    ]}
-                    // maxLength={setMaxLength(maskType, maxLength)}
-                    {...passedProps}
-                />
-                {renderIcon()}
-            </View>
-        )
-    }
-
-    return (
-        <View
-            onLayout={onLayout}
-            style={[
-                styles.container,
-                containerStyle,
-                focused ? focusedContainerStyle : {}
-            ]}
-        >
-            <TextInput
-                ref={ref ? ref : inputRef}
-                // value={isMasked(maskType, value)}
-                value={value}
-                onChangeText={onChange}
-                style={[
-                    styles.textInput,
-                    style,
-                    focused ? focusedStyle : {}
-                ]}
-                onFocus={() => {
-                    setFocusedFunc(true)
-                    if (onFocus) {
-                        onFocus()
-                    }
-                }}
-                onBlur={() => {
-                    setFocusedFunc(false)
-                    if (onBlur) {
-                        onBlur()
-                    }
-                }}
-                // maxLength={setMaxLength(maskType, maxLength)}
-                {...passedProps}
-            />
-            {renderIcon()}
-            <View style={[styles.placeholderContainer, {
-                top: focused || value ? offset : fucusedOffet,
-            }]}>
-                <Text
-                    onPress={() => inputRef.current.focus()}
-                    onLayout={onPlaceholderLayout}
-                    style={[styles.placeholder, {
-                        color: focused || value ? (focusedPlaceholderTextColor ? focusedPlaceholderTextColor : placeholderTextColor) : placeholderTextColor,
-                        fontSize: focused || value ? fontSizeOnFocus : fontSize
-                    }]}
-                >{placeholder}</Text>
-            </View>
-        </View>
-    )
-})
+export default TextInputComponent

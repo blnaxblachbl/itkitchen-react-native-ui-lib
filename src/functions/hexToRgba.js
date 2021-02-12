@@ -5,9 +5,7 @@ export default (hex, alpha) => {
         b = parseInt(hex.slice(5, 7), 16);
     if (alpha && 0 < parseInt(alpha) < 1) {
         return `rgba(${r}, ${g}, ${b}, ${alpha})`
-        return "rgba(" + r + ", " + g + ", " + b + ", " + alpha + ")";
     } else {
         return `rgb(${r}, ${g}, ${b})`
-        return "rgb(" + r + ", " + g + ", " + b + ")";
     }
 }

@@ -18,7 +18,7 @@ const wordsFromUpperCase = (string) => {
 
 const emailValid = (email) => {
     try {
-        let re2 = /^\w+@\w+\.[a-zA-Z]{2,}$/
+        let re2 = /\S+@\S+\.\S+/
         let str = email.toString()
         return re2.test(str)
     } catch (e) {
