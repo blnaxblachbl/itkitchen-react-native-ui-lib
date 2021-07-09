@@ -109,7 +109,7 @@ export default Switch = ({
 
     return (
         <TouchableOpacity
-            activeOpacity={activeOpacity ? activeOpacity : 0.6}
+            activeOpacity={activeOpacity ? activeOpacity : 0.9}
             onPress={toggleSwitch}
             style={[
                 styles.switchContainerStyle,

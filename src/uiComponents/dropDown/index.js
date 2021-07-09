@@ -38,16 +38,6 @@ const styles = StyleSheet.create({
     itemsList: {
         position: "absolute",
         zIndex: 998,
-        ...Platform.select({
-            android: {
-                elevation: 7,
-            },
-            ios: {
-                shadowOffset: { width: 2, height: 2 },
-                shadowColor: 'black',
-                shadowOpacity: 0.5
-            }
-        }),
         borderRadius: 5,
         borderColor: "#959595",
         backgroundColor: "#ffffff",
@@ -57,6 +47,20 @@ const styles = StyleSheet.create({
     view: {
         flex: 1,
         backgroundColor: "rgba(0,0,0,0)",
+        ...Platform.select({
+            android: {
+                elevation: 7,
+            },
+            ios: {
+                shadowColor: "#000",
+                shadowOffset: {
+                    width: 0,
+                    height: 3,
+                },
+                shadowOpacity: 0.29,
+                shadowRadius: 4.65,
+            }
+        }),
     }
 })
 
@@ -215,8 +219,8 @@ export default DropDown = ({
                     {value ? (
                         <Text numberOfLines={1} style={[styles.text, textStyle, { color: "#2c2a29" }]}>{typeof (value) === "string" ? value : value.label}</Text>
                     ) : (
-                            <Text numberOfLines={1} style={[styles.text, placeholderTextStyle]}>{placeholder}</Text>
-                        )}
+                        <Text numberOfLines={1} style={[styles.text, placeholderTextStyle]}>{placeholder}</Text>
+                    )}
                 </TouchableOpacity>
             )
         }

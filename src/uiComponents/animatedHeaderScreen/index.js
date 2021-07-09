@@ -5,7 +5,8 @@ import {
     Animated,
     StyleSheet,
     FlatList,
-    FlatListProps
+    FlatListProps,
+    Easing
 } from 'react-native'
 import propsParser from './propsParser'
 
@@ -66,7 +67,8 @@ export default AnimatedHeaderScreen = (props) => {
     const headerHeight = scrollOffset.interpolate({
         inputRange: [0, maxHeight - minHeight],
         outputRange: [maxHeight, minHeight],
-        extrapolate: 'clamp'
+        extrapolate: 'clamp',
+        useNativeDriver: true
     })
 
     const opacity = scrollOffset.interpolate({
@@ -80,7 +82,15 @@ export default AnimatedHeaderScreen = (props) => {
 
     return (
         <View style={styles.container}>
-            <Animated.View style={[styles.headerDefaultStyle, { height: headerHeight, backgroundColor: headerBackgroundColor ? headerBackgroundColor : "#ffffff" }]}>
+            <Animated.View
+                style={[
+                    styles.headerDefaultStyle,
+                    {
+                        height: headerHeight,
+                        backgroundColor: headerBackgroundColor ? headerBackgroundColor : "#ffffff"
+                    }
+                ]}
+            >
                 <Animated.View style={[styles.headerContainerDefaultStyle, headerContainertStyle, { opacity }]}>
                     {renderHeader && renderHeader(scrollOffset)}
                 </Animated.View>
@@ -88,7 +98,10 @@ export default AnimatedHeaderScreen = (props) => {
             <FlatList
                 style={[styles.listDefaultStyle, style]}
                 contentContainerStyle={[styles.listDefaultContainerStyle, contentContainerStyle, { paddingTop: maxHeight }]}
-                onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollOffset } } }])}
+                onScroll={Animated.event(
+                    [{ nativeEvent: { contentOffset: { y: scrollOffset } } }],
+                    { useNativeDriver: false }
+                )}
                 {...parsedProps}
             />
         </View>
