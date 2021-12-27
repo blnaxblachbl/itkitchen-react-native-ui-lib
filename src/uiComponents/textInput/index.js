@@ -162,6 +162,7 @@ const TextInputComponent = forwardRef(({
                             ]}
                         >
                             <Text
+                                numberOfLines={1}
                                 onPress={() => inputRef.current.focus()}
                                 onLayout={onPlaceholderLayout}
                                 style={[
