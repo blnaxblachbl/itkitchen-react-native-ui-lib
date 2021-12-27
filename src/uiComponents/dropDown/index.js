@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         borderColor: "grey",
         borderWidth: 1,
-        padding: 5
+        padding: 10
     },
     itemContainer: {
         zIndex: 999,
@@ -47,20 +47,15 @@ const styles = StyleSheet.create({
     view: {
         flex: 1,
         backgroundColor: "rgba(0,0,0,0)",
-        ...Platform.select({
-            android: {
-                elevation: 7,
-            },
-            ios: {
-                shadowColor: "#000",
-                shadowOffset: {
-                    width: 0,
-                    height: 3,
-                },
-                shadowOpacity: 0.29,
-                shadowRadius: 4.65,
-            }
-        }),
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+
+        elevation: 5,
     }
 })
 

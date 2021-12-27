@@ -82,7 +82,6 @@ enabledBackgroundColor | switch background color when it is on | '#ccc' | string
 disabledBackgroundColor | switch background color when it is off | '#ccc' | string
 onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
 
-<!-- - **_ListModal_** - removed. Maybe in the next update we will refactor and refund it. -->
 
 - **_AnimatedHeaderList_** - is UI component with animated header. This component based on FlatList and support all props of it. 
 
