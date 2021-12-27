@@ -1,106 +1,124 @@
-import React, { useState, useEffect, useRef, forwardRef } from 'react'
+import React, { useState, useRef, forwardRef, useMemo, useCallback } from 'react'
 import {
     View,
     StyleSheet,
     Text,
     TextInput,
-    LayoutAnimation,
-    Platform,
-    UIManager
+    Animated,
+    Keyboard
 } from 'react-native'
+import List from './list'
 
-const CustopPreset = {
-    duration: 500,
-    create: {
-        type: LayoutAnimation.Types.spring,
-        property: LayoutAnimation.Properties.scaleXY,
-        springDamping: 1
-    },
-    update: {
-        type: LayoutAnimation.Types.spring,
-        property: LayoutAnimation.Properties.scaleXY,
-        springDamping: 1
-    },
-    delete: {
-        type: LayoutAnimation.Types.spring,
-        property: LayoutAnimation.Properties.scaleXY,
-        springDamping: 1
-    }
-}
+const TextInputComponent = forwardRef(({
+    value,
+    placeholder,
+    style,
+    placeholderTextColor = "#A2A2A2",
+    containerStyle,
+    onFocus = () => { },
+    onBlur = () => { },
+    focusedContainerStyle,
+    focusedStyle,
+    focusedPlaceholderTextColor = "#A2A2A2",
+    iconVisible = true,
+    leftIconVisible = true,
+    disableAnimation = false,
+    IconComponent,
+    LeftIconComponent,
+    onChangeText = () => { },
+    listData = [],
+    listProps = {},
+    onListItemSelect = () => { },
+    ...props
+}, ref) => {
 
-const TextInputComponent = forwardRef((props, ref) => {
-    const {
-        value,
-        placeholder,
-        containerStyle,
-        focusedContainerStyle,
-        style,
-        focusedStyle,
-        placeholderTextColor = props.style && props.style.color ? props.style.color : "#A2A2A2",
-        focusedPlaceholderTextColor = "#A2A2A2",
-        iconVisible = true,
-        leftIconVisible = true,
-        disableAnimation = false,
-        IconComponent,
-        LeftIconComponent,
-        onFocus = () => { },
-        onBlur = () => { },
-    } = props
-
+    let inputRef = ref ? ref : useRef()
+    const anim = useRef(new Animated.Value(0)).current
     const [focused, setFocused] = useState(false)
     const [componentHeight, setComponentHeight] = useState(0)
+    const [componentPosition, setComponentPosition] = useState(0)
     const [placeholderHeight, setPlaceholderHeight] = useState(1)
+    const [placeholderTopOffset, setPlaceholderTopOffset] = useState(0)
     const [leftOffset, setLeftOffset] = useState(0)
-    let inputRef = ref ? ref : useRef()
+    const [_value, _setValue] = useState("")
 
-    const offset = -(placeholderHeight + 2)
-    const fucusedOffet = (componentHeight / 2) - (placeholderHeight / 2)
-    const fontSize = style && style.fontSize ? style.fontSize : 16
-    const fontSizeOnFocus = (fontSize - 4) < 4 ? 4 : (fontSize - 4)
+    const fucusedOffet = useMemo(() => -(componentHeight - placeholderTopOffset + 2), [componentHeight, placeholderHeight])
+    const fontSizeFromStyle = useMemo(() => style && style.fontSize ? style.fontSize : 16, [style])
+    const fontSizeOnFocus = useMemo(() => (fontSizeFromStyle - 4) < 4 ? 4 : (fontSizeFromStyle - 4), [fontSizeFromStyle])
+    const placeholderColor = useMemo(() => focused ? focusedPlaceholderTextColor : placeholderTextColor, [focusedPlaceholderTextColor, placeholderTextColor, focused])
+    const fontSize = useMemo(() => focused || value || _value ? fontSizeOnFocus : fontSizeFromStyle, [fontSizeFromStyle, fontSizeOnFocus, focused, value, _value])
+    const showList = useMemo(() => focused && listData.length > 0, [focused, listData])
 
-    useEffect(() => {
-        if (Platform.OS == "android" && !disableAnimation) {
-            UIManager.setLayoutAnimationEnabledExperimental(true)
-        }
-    }, [disableAnimation])
-
-    const onLayout = ({ nativeEvent }) => {
-        const { x, y, width, height } = nativeEvent.layout
+    const onLayout = useCallback(({ nativeEvent }) => {
+        const { y, height } = nativeEvent.layout
         setComponentHeight(height)
-    }
+        setComponentPosition(y)
+    }, [])
 
-    const onLeftLayout = ({ nativeEvent }) => {
-        const { x, y, width, height } = nativeEvent.layout
+    const onLeftLayout = useCallback(({ nativeEvent }) => {
+        const { width } = nativeEvent.layout
         setLeftOffset(width + 5)
-    }
+    }, [])
 
-    const onPlaceholderLayout = ({ nativeEvent }) => {
-        const { x, y, width, height } = nativeEvent.layout
+    const onPlaceholderLayout = useCallback(({ nativeEvent }) => {
+        const { y, height } = nativeEvent.layout
         setPlaceholderHeight(height)
-    }
+        setPlaceholderTopOffset(y + height)
+    }, [])
 
-    const setFocusedFunc = (focus) => {
-        LayoutAnimation.configureNext(CustopPreset)
+    const setFocusedFunc = useCallback((focus) => {
+        const text = value || _value
+        if (!disableAnimation && (!text || focus)) {
+            Animated.timing(anim, {
+                toValue: focus ? 1 : 0,
+                duration: 200,
+                useNativeDriver: true
+            }).start()
+        }
         setFocused(focus)
-    }
+    }, [disableAnimation, value, _value, setFocused])
 
-    const renderIcon = () => {
+    const renderIcon = useCallback(() => {
         if (iconVisible && IconComponent) {
             return IconComponent
         }
         return null
-    }
+    }, [iconVisible, IconComponent])
 
-    const renderLeftIcon = () => {
+    const onChangeTextFunc = useCallback((text) => {
+        onChangeText(text)
+        _setValue(text)
+    }, [onChangeText])
+
+    const renderLeftIcon = useCallback(() => {
         if (leftIconVisible && LeftIconComponent) {
             const Icon = React.cloneElement(LeftIconComponent, { onLayout: onLeftLayout })
             return Icon
         }
         return null
-    }
+    }, [LeftIconComponent, leftIconVisible])
 
-    if (disableAnimation) {
-        return (
+    const selectItem = useCallback((item) => {
+        onListItemSelect(item)
+        if (item && item.label) {
+            _setValue(item.label)
+        }
+        Keyboard.dismiss()
+    }, [onListItemSelect])
+
+    const left = anim.interpolate({
+        inputRange: [0, 1],
+        outputRange: [leftOffset, -10],
+        extrapolate: 'clamp'
+    })
+    const top = anim.interpolate({
+        inputRange: [0, 1],
+        outputRange: [0, fucusedOffet],
+        extrapolate: 'clamp'
+    })
+
+    return (
+        <>
             <View
                 onLayout={onLayout}
                 style={[
@@ -111,66 +129,65 @@ const TextInputComponent = forwardRef((props, ref) => {
             >
                 {renderLeftIcon()}
                 <TextInput
-                    {...props}
                     ref={ref ? ref : inputRef}
+                    value={value || _value}
+                    placeholder={disableAnimation ? placeholder : undefined}
+                    placeholderTextColor={disableAnimation ? placeholderColor : undefined}
                     style={[
                         styles.textInput,
                         style,
                         focused ? focusedStyle : {}
                     ]}
+                    defaultValue=''
+                    onFocus={() => {
+                        setFocusedFunc(true)
+                        onFocus()
+                    }}
+                    onBlur={() => {
+                        setFocusedFunc(false)
+                        onBlur()
+                    }}
+                    onChangeText={onChangeTextFunc}
+                    {...props}
                 />
                 {renderIcon()}
+                {
+                    !disableAnimation ? (
+                        <Animated.View
+                            style={[
+                                styles.placeholderContainer,
+                                {
+                                    transform: [{ translateX: left }, { translateY: top }]
+                                }
+                            ]}
+                        >
+                            <Text
+                                onPress={() => inputRef.current.focus()}
+                                onLayout={onPlaceholderLayout}
+                                style={[
+                                    styles.placeholder,
+                                    {
+                                        color: placeholderColor,
+                                        fontSize
+                                    }
+                                ]}
+                            >{placeholder}</Text>
+                        </Animated.View>
+                    ) : null
+                }
             </View>
-        )
-    }
-
-    return (
-        <View
-            onLayout={onLayout}
-            style={[
-                styles.container,
-                containerStyle,
-                focused ? focusedContainerStyle : {}
-            ]}
-        >
-            {renderLeftIcon()}
-            <TextInput
-                {...props}
-                ref={ref ? ref : inputRef}
-                style={[
-                    styles.textInput,
-                    style,
-                    focused ? focusedStyle : {}
-                ]}
-                onFocus={() => {
-                    setFocusedFunc(true)
-                    if (onFocus) {
-                        onFocus()
-                    }
-                }}
-                onBlur={() => {
-                    setFocusedFunc(false)
-                    if (onBlur) {
-                        onBlur()
-                    }
-                }}
-                placeholder={undefined}
-            />
-            {renderIcon()}
-            <View style={[styles.placeholderContainer, {
-                top: focused || value ? offset : fucusedOffet,
-                left: focused || value ? 0 : leftOffset
-            }]}>
-                <Text
-                    onPress={() => inputRef.current.focus()}
-                    onLayout={onPlaceholderLayout}
-                    style={[styles.placeholder, {
-                        color: focused || value ? (focusedPlaceholderTextColor ? focusedPlaceholderTextColor : placeholderTextColor) : placeholderTextColor,
-                        fontSize: focused || value ? fontSizeOnFocus : fontSize
-                    }]}
-                >{placeholder}</Text>
-            </View>
-        </View>
+            {
+                showList ? (
+                    <List
+                        value={value || _value}
+                        data={listData}
+                        offset={componentHeight + componentPosition}
+                        selectItem={selectItem}
+                        listProps={listProps}
+                    />
+                ) : null
+            }
+        </>
     )
 })
 
@@ -179,12 +196,12 @@ const styles = StyleSheet.create({
         width: "100%",
         backgroundColor: "#F5F5F5",
         borderRadius: 10,
-        paddingHorizontal: 10,
-        paddingVertical: 0,
         justifyContent: 'center',
         flexDirection: "row",
         alignItems: 'center',
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        position: 'relative',
+        zIndex: 1
     },
     textInput: {
         flex: 1,
@@ -193,6 +210,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 0,
         paddingVertical: 10,
         color: "#000000",
+        paddingHorizontal: 10
     },
     placeholder: {
         color: "#A2A2A2",

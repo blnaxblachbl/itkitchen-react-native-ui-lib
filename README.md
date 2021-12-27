@@ -189,10 +189,29 @@ const [text, setText] = useState("")
 return (
     <View style={styles.container}>
         <UI.TextInput
-            value={text}
-            onChangeText={text => setText(text)}
-            placeholder="Name"
-            containerStyle={{ width: "95%" }}
+            placeholder="What is not a programming language"
+            focusedPlaceholderTextColor="red"
+            focusedContainerStyle={{
+                borderColor: 'red',
+                borderWidth: 1
+            }}
+            listData={[
+                { value: 'js', label: 'JavaScript' },
+                { value: 'php', label: 'PHP' },
+                { value: 'python', label: 'Python' },
+                { value: 'c', label: 'C++' },
+                { value: 'ruby', label: 'Ruby' },
+                { value: 'html', label: 'HTML' },
+                { value: 'dart', label: 'Dart' },
+            ]}
+            listProps={{
+                scrollView: {
+                    style: {
+                        width: 200
+                    }
+                },
+                emptyText: 'Nothing is here'
+            }}
         />
     </View>
 )
@@ -205,16 +224,19 @@ return (
 Name | Description | Default | Type
 ------|-------------|----------|-----------
 value | value of TextInput component | "" | string
-containerStyle | style of text input container | object | style
-focusedContainerStyle | style of text input container when it focused | object | style
-style | style of TextInput component | object | style
-focusedStyle | style of TextInput component when it focused | object | style
+containerStyle | style of text input container | {} | object
+focusedContainerStyle | style of text input container when it focused | {} | object
+style | style of TextInput component | {} | object
+focusedStyle | style of TextInput component when it focused | {} | object
 IconComponent | icon component that will render on right side of input | null | React Component
 iconVisible | the boolean prop that hide or show right icon component | false | bool
 LeftIconComponent | icon component that will render on left side of input | null | React Component
 leftIconVisible | the boolean prop that hide or show left icon component | false | bool
 disableAnimation | the boolean prop that disable animation | false | bool
 focusedPlaceholderTextColor | if lable color shuld change on focus, pass your color to this props | same with placeholderTextColor | string
+listData | array of object({value: Any, label: String}) | [] | array
+listProps | object of list props {"containerStyle": Object,  style of list container. "scrollViewProps": ScrollViewProps, react-native ScrollView properties. "itemStyle": Object, list item style, "itemTextStyle": Object, list item text style, "emptyContainerStyle": Object, container style if list of suggestions is empty, "emptyTextStyle": Object, text style when list of suggestions is empty, "emptyText": Object, style of text when list of suggestions is empty } | {} | object
+onListItemSelect | call back function when list item is pressed | () => {} | function
 and all TextInput component props |  |  | any
 
 - **_Button_** - is UI component of button.
