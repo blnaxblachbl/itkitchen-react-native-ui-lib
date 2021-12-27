@@ -58,12 +58,20 @@ const List = ({ listProps = {}, value = "", data, offset = 0, selectItem = () =>
 
 const styles = StyleSheet.create({
     wrapper: {
-        elevation: 5,
         width: '100%',
         position: 'absolute',
         maxHeight: 200,
         backgroundColor: '#fff',
         zIndex: 2,
+
+        elevation: 5,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
     },
     container: {
         flex: 1

@@ -8,6 +8,7 @@ import {
     Keyboard
 } from 'react-native'
 import List from './list'
+import { normalize } from '../../functions/normalize'
 
 const TextInputComponent = forwardRef(({
     value,
@@ -42,9 +43,9 @@ const TextInputComponent = forwardRef(({
     const [leftOffset, setLeftOffset] = useState(0)
     const [_value, _setValue] = useState("")
 
-    const fucusedOffet = useMemo(() => -(componentHeight - placeholderTopOffset + 2), [componentHeight, placeholderHeight])
-    const fontSizeFromStyle = useMemo(() => style && style.fontSize ? style.fontSize : 16, [style])
-    const fontSizeOnFocus = useMemo(() => (fontSizeFromStyle - 4) < 4 ? 4 : (fontSizeFromStyle - 4), [fontSizeFromStyle])
+    const fucusedOffet = useMemo(() => -(componentHeight - placeholderTopOffset + normalize(5)), [componentHeight, placeholderHeight])
+    const fontSizeFromStyle = useMemo(() => style && style.fontSize ? style.fontSize : normalize(16), [style])
+    const fontSizeOnFocus = useMemo(() => (fontSizeFromStyle - 4) < 4 ? normalize(4) : (fontSizeFromStyle - 4), [fontSizeFromStyle])
     const placeholderColor = useMemo(() => focused ? focusedPlaceholderTextColor : placeholderTextColor, [focusedPlaceholderTextColor, placeholderTextColor, focused])
     const fontSize = useMemo(() => focused || value || _value ? fontSizeOnFocus : fontSizeFromStyle, [fontSizeFromStyle, fontSizeOnFocus, focused, value, _value])
     const showList = useMemo(() => focused && listData.length > 0, [focused, listData])
