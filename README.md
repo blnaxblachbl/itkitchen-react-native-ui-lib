@@ -388,11 +388,15 @@ const styles = StyleSheet.create({
 return (
     <View style={styles.container}>
         <UI.Avatar
-            imageUrl="https://thenypost.files.wordpress.com/2019/12/cat.jpg?quality=80&strip=all"
+            imageUrl="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsb3dnwW7TWK8zRGaCQ_ThqeLRWTZKXsWAL5z6rI_9UAwM0NqH"
             nameString="Tit Hardwood"
-            badge={999}
+            badge={100}
+            style={{ marginBottom: 15 }}
         />
-        <Text>Tit Hardwood</Text>
+        <UI.Avatar
+            nameString="Tit Hardwood"
+            badge={5}
+        />
     </View>
 )
 ```
@@ -406,10 +410,11 @@ imageUrl | url to image | "" | String
 nameString | string of user name or description | "" | string
 onPress | function that call when avatar pressed | onPress={()=>{}} | func
 badge | used if you need to render badge on avatar | 0 | number
-style | style of the component container | object | style
-imageStyle | style of the image | object | style
-badgeStyle | style of the badge | object | style
-badgeTextStyle | style of the badge | object | style
+style | style of the component container | {} | style
+imageStyle | style of the image | {} | style
+badgeStyle | style of the badge | {} | style
+badgeTextStyle | style of the badge | {} | style
+letterStyle | style of letters of nameString when imageUrl is empty | {} | style
 
 - **_Badge_** - is UI component used to render a numerical value.
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import {
     View,
     StyleSheet,
@@ -6,6 +6,7 @@ import {
     Image,
     TouchableOpacity,
 } from 'react-native'
+import { normalize } from '../../functions/normalize'
 import Badge from '../badge'
 
 const styles = StyleSheet.create({
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#bdbdbd"
     },
     letter: {
-        fontSize: 33,
+        fontSize: normalize(30),
         fontWeight: 'bold',
         color: "#ffffff"
     },
@@ -44,46 +45,36 @@ const Avatar = ({
     style,
     imageStyle,
     badgeStyle,
-    badgeTextStyle
+    badgeTextStyle,
+    imageProps,
+    letterStyle
 }) => {
 
-    const renderImage = () => {
+    const renderImage = useCallback(() => {
+        let letters = ['N', 'A']
         if (imageUrl) {
             return (
                 <Image
                     source={{ uri: imageUrl }}
                     resizeMode="cover"
                     style={[styles.image, imageStyle]}
+                    {...imageProps}
                 />
             )
         }
         if (nameString) {
-            let array = nameString.split(" ")
-            if (array.length > 0) {
-                return (
-                    <View style={[styles.image, imageStyle]}>
-                        {
-                            array.map((item, index) => {
-                                if (index < 2) {
-                                    return (
-                                        <Text key={index} style={styles.letter}>
-                                            {item.charAt(0).toUpperCase()}
-                                        </Text>
-                                    )
-                                }
-                            })
-                        }
-                    </View>
-                )
-            }
+            letters = nameString.split(" ").map(item => item.slice(0, 1).toUpperCase())
         }
         return (
             <View style={[styles.image, imageStyle]}>
-                <Text style={styles.letter}>N</Text>
-                <Text style={styles.letter}>A</Text>
+                {
+                    letters.map((item, index) => index < 2 ? (
+                        <Text key={item + index} style={[styles.letter, letterStyle]}>{item}</Text>
+                    ) : null)
+                }
             </View>
         )
-    }
+    }, [nameString, imageUrl, imageStyle, letterStyle])
 
     return (
         <TouchableOpacity
