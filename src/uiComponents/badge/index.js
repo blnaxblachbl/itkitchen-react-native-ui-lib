@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import {
     View,
     StyleSheet,
@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     badgeText: {
         color: "#ffffff",
         fontSize: 12,
-        fontWeight: "bold"
+        fontWeight: "bold",
+        maxWidth: 70
     }
 })
 
@@ -27,14 +28,25 @@ const Badge = ({
     textStyle,
     badge = 0
 }) => {
-    if (badge && typeof (badge) == "number") {
-        return (
-            <View style={[styles.badge, style]}>
-                <Text style={[styles.badgeText, textStyle]}>{badge > 99 ? "99+" : badge}</Text>
-            </View>
-        )
+    const _badge = useMemo(() => {
+        if (typeof (badge) == "number") {
+            return badge > 99 ? "99+" : badge
+        }
+        if (typeof (badge) === 'string') {
+            return badge
+        }
+        return null
+    }, [badge])
+
+    if (!_badge) {
+        return null
     }
-    return null
+
+    return (
+        <View style={[styles.badge, style]}>
+            <Text numberOfLines={1} style={[styles.badgeText, textStyle]}>{_badge}</Text>
+        </View>
+    )
 }
 
 export default Badge
