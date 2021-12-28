@@ -443,16 +443,7 @@ badge | used if you need to render badge on avatar | 0 | number
 style | style of the component container | object | style
 textStyle | style of the badge value | object | style
 
-- **_Card_** - is UI component used to render some information. (deprecated from 1.3.6)
-
-To use cards you need to install [react-native-vector-icons](https://www.npmjs.com/package/react-native-vector-icons)
-```
-npm install react-native-vector-icons
-```
-OR
-```
-yarn add react-native-vector-icons
-```
+- **_Card_** - is UI component used to render some information.
 
 1. **cardType - default**
 
@@ -482,13 +473,9 @@ yarn add react-native-vector-icons
                     <UI.Card
                         key={index}
                         title={item.title}
-                        subTitle={item.subTitle}
+                        description={item.description}
                         imageUrl={item.imageUrl}
-                        like
-                        share
-                        comment
-                        favorite
-                        iconsSize={23}
+                        containerStyle={{ marginBottom: 15 }}
                     />
                 ))
             }
@@ -502,88 +489,23 @@ yarn add react-native-vector-icons
 Name | Description | Default | Type
 ------|-------------|----------|-----------
 title | title of card | "" | string
-subTitle | subtitle of card | "" | string
-imageUrl | url to image  | "" | string
-like | bool property to show or hide like icon | false | bool
-comment | bool property to show or hide comment icon | false | bool
-favorite | bool property to show or hide favorite icon | false | bool
-share | bool property to show or hide share icon | false | bool
-liked | bool property mark like icon | false | bool
-commented | bool property mark comment icon | false | bool
-favorited | bool property mark favorite icon | false | bool
-shared | bool property mark share icon | false | bool
-iconsSize | size of icons | 22 | number
-onPress | function that call when card pressed | onPress={()=>{}} | func 
-onLikePress| function that call when like icon pressed | onPress={()=>{}} | func
-onCommentPress | function that call when comment icon pressed | onPress={()=>{}} | func 
-onFavoritePress | function that call when favorite icon pressed | onPress={()=>{}} | func 
-onSharePress | function that call when share icon pressed | onPress={()=>{}} | func 
-CustomFooter | Custom component that will render on bottom of card instead of icons | React Component
-actionsColor | color of icons when icon is not marked | "#000000" | string
-altActionsColor | color of icons when icon is marked | "#ff0000" | string
-containerStyle | style of component container | object | style
-imageStyle | style of the image | object | style
-infoContainerStyle | style of info container(title and subtitle) | object | style 
-titleStyle | style of card title | object | style
-subTitleStyle | style of card subtitle | object | style
-footerContainerStyle | style of info container on bottom of card | object | style 
-
-2. **cardType - animated**
-
-```javascript
-    import { Functions, UI } from 'itkitchen-react-native-ui-lib'
-    //...
-    const styles = StyleSheet.create({
-        container: {
-            flex: 1,
-            width,
-            alignItems: "center",
-            justifyContent: "center"
-        }
-    })
-    //...
-    const arr = new Array(10).fill({
-        imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsb3dnwW7TWK8zRGaCQ_ThqeLRWTZKXsWAL5z6rI_9UAwM0NqH',
-        title: "Cat",
-        subTitle: "Sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping"
-    })
-    //...
-    return (
-        <ScrollView
-            style={styles.container}
-            contentContainerStyle={{ alignItems: 'center' }}
-        >
-            {
-                arr.map((item, index) => (
-                    <UI.Card
-                        cardType="animated"
-                        key={index}
-                        title={item.title}
-                        subTitle={item.subTitle}
-                        imageUrl={item.imageUrl}
-                        InfoComponent={
-                            <Text>More info here</Text>
-                        }
-                    />
-                ))
-            }
-        </ScrollView>
-    )
-```
-
-<img width="35%" src="./gifs/animeted-card.gif"/>
-
-#### Props
-Name | Description | Default | Type
-------|-------------|----------|-----------
-title | title of card | "" | string
-subTitle | subtitle of card | "" | string
+description | subtitle of card | "" | string
 imageUrl | url to image  | "" | string
 onPress | function that call when card pressed | onPress={()=>{}} | func 
-InfoComponent | Custom component that will render more info opened | React Component
-containerStyle | style of component container | object | style
-titleStyle | style of card title | object | style
-subTitleStyle | style of card subtitle | object | style
+titleNumberOfLines | number of title lines. React-Native Text component property | 3 | number
+descriptionNumberOfLines | number of description lines. React-Native Text component property | 3 | number
+Footer | Component that will render on bottom of card | null | React-Native Component
+containerStyle | style of component container | {} | style
+imageStyle | style of the image | {} | style
+imageContainerStyle | style of image container | {} | style
+infoContainerStyle | style of info container(title and subtitle) | {} | style 
+titleStyle | style of card title | {} | style
+descriptionStyle | style of card subtitle | {} | style
+loadingColor | color of ActivityIndicator while image loading | "#000" | string
+loadingSize | size of ActivityIndicator while image loading | 'small' | 'small' or 'large' 
+imageProps | Image component props |  |  | any
+
+2. **cardType - animated** //_Removed._
 
 3. **cardType - background**
 
@@ -616,13 +538,9 @@ subTitleStyle | style of card subtitle | object | style
                         cardType="background"
                         key={index}
                         title={item.title}
-                        subTitle={item.subTitle}
+                        description={item.subTitle}
                         imageUrl={item.imageUrl}
-                        like
-                        share
-                        comment
-                        favorite
-                        iconsSize={23}
+                        containerStyle={{ marginBottom: 15 }}
                     />
                 ))
             }
@@ -636,31 +554,19 @@ subTitleStyle | style of card subtitle | object | style
 Name | Description | Default | Type
 ------|-------------|----------|-----------
 title | title of card | "" | string
-subTitle | subtitle of card | "" | string
+description | subtitle of card | "" | string
 imageUrl | url to image  | "" | string
-like | bool property to show or hide like icon | false | bool
-comment | bool property to show or hide comment icon | false | bool
-favorite | bool property to show or hide favorite icon | false | bool
-share | bool property to show or hide share icon | false | bool
-liked | bool property mark like icon | false | bool
-commented | bool property mark comment icon | false | bool
-favorited | bool property mark favorite icon | false | bool
-shared | bool property mark share icon | false | bool
-iconsSize | size of icons | 22 | number
 onPress | function that call when card pressed | onPress={()=>{}} | func 
-onLikePress| function that call when like icon pressed | onPress={()=>{}} | func
-onCommentPress | function that call when comment icon pressed | onPress={()=>{}} | func 
-onFavoritePress | function that call when favorite icon pressed | onPress={()=>{}} | func 
-onSharePress | function that call when share icon pressed | onPress={()=>{}} | func 
-CustomFooter | Custom component that will render on bottom of card instead of icons | React Component
-actionsColor | color of icons when icon is not marked | "#000000" | string
-altActionsColor | color of icons when icon is marked | "#ff0000" | string
-containerStyle | style of component container | object | style
-imageStyle | style of the image | object | style
-infoContainerStyle | style of info container(title and subtitle) | object | style 
-titleStyle | style of card title | object | style
-subTitleStyle | style of card subtitle | object | style
-footerContainerStyle | style of info container on bottom of card | object | style 
+titleNumberOfLines | number of title lines. React-Native Text component property | 3 | number
+descriptionNumberOfLines | number of description lines. React-Native Text component property | 3 | number
+Footer | Component that will render on bottom of card | null | React-Native Component
+containerStyle | style of component container | {} | style
+imageStyle | style of the image | {} | style
+maskStyle | style of mask view container | { ...StyleSheet.absoluteFillObject, backgroundColor: "rgba(0,0,0,0.4)" } | style
+infoContainerStyle | style of info container(title and subtitle) | {} | style 
+titleStyle | style of card title | {} | style
+descriptionStyle | style of card subtitle | {} | style
+imageBackgroundProps | ImageBackground component props |  |  | any
 
 ### Functions
 - **_normalize_** - is a function which normalizes the font size of the text relative to the screen size.

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {
     View,
     StyleSheet,
@@ -7,86 +7,62 @@ import {
     TouchableOpacity,
     ActivityIndicator
 } from 'react-native'
-import Ionicons from 'react-native-vector-icons/Ionicons'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+
+import { normalize } from '../../../functions/normalize'
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        width: "95%",
+        width: "100%",
         backgroundColor: "#ffffff",
-        marginTop: "2.5%",
         borderWidth: 0.4,
         borderColor: "#cfcfcf",
         alignItems: "center",
         borderRadius: 2
     },
     infoContainer: {
-        width: "93%",
+        width: "100%",
         justifyContent: "center",
-        paddingVertical: 5
+        padding: 10
     },
-    actionContainer: {
-        width: "93%",
-        alignItems: "center",
-        justifyContent: 'space-between',
-        paddingVertical: 7,
-        flexDirection: "row"
+    imageContainer: {
+        width: "100%",
+        height: 150,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     image: {
         width: "100%",
-        maxHeight: 350
     },
     title: {
-        fontSize: 18,
+        fontSize: normalize(17),
         fontWeight: "bold",
-        color: "#1f1f1f",
-        marginBottom: 7
+        color: "#1f1f1f"
     },
     subTitle: {
-        fontSize: 14,
+        fontSize: normalize(12),
         color: "#1f1f1f",
-    },
-    spinner: {
-        paddingTop: 35,
-        paddingBottom: 15
     }
 })
 
 const Default = ({
     title = "",
     imageUrl = "",
-    subTitle = "",
-
-    like = false,
-    comment = false,
-    favorite = false,
-    share = false,
-
-    liked = false,
-    commented = false,
-    favorited = false,
-    shared = false,
-
-    iconsSize = 22,
-
+    description = "",
     onPress = () => { },
-    onLikePress = () => { },
-    onCommentPress = () => { },
-    onFavoritePress = () => { },
-    onSharePress = () => { },
+    descriptionNumberOfLines = 3,
+    titleNumberOfLines = 1,
 
-    CustomFooter,
-
-    actionsColor = "#000000",
-    altActionsColor = "#ff0000",
+    Footer,
 
     containerStyle,
     imageStyle,
+    imageContainerStyle,
     infoContainerStyle,
     titleStyle,
-    subTitleStyle,
-    footerContainerStyle
+    descriptionStyle,
+    loadingColor = "#000",
+    loadingSize = 'small',
+    imageProps
 }) => {
 
     const [imageHeight, setImageHeight] = useState(0)
@@ -102,105 +78,64 @@ const Default = ({
         }
     }, [containerWidth, imageUrl])
 
-    const onLoadSuccess = (iWidth, iHeight) => {
+    const onLoadSuccess = useCallback((iWidth, iHeight) => {
         const delta = (containerWidth / iWidth) * iHeight
         setImageHeight(delta)
         setLoading(false)
-    }
+    }, [containerWidth])
 
-    const onLoadFail = (error) => {
+    const onLoadFail = useCallback((error) => {
         setLoading(false)
         setFail(true)
-    }
+    }, [])
 
-    const onCaontainerLayout = (event) => {
+    const onCaontainerLayout = useCallback((event) => {
         const { x, y, width, height } = event.nativeEvent.layout
         setContainerWidth(width)
-    }
+    }, [])
 
-    const renderImage = () => {
-        if (loading) {
-            return <ActivityIndicator animating={true} size='small' color='#000000' style={styles.spinner} />
+    const renderImage = useCallback(() => {
+        if (!imageUrl) {
+            return null
         }
-        if (fail || !imageUrl) {
+        if (loading) {
             return (
-                <Image
-                    source={require("../images/noimage.jpg")}
-                    style={[styles.image, { height: 150 }, imageStyle]}
-                    resizeMode="cover"
-                />
+                <View style={[styles.imageContainer, imageContainerStyle]}>
+                    <ActivityIndicator
+                        animating
+                        size={loadingSize}
+                        color={loadingColor}
+                    />
+                </View>
+            )
+        }
+        if (fail) {
+            return (
+                <View style={[styles.imageContainer, imageContainerStyle]}>
+                    <Image
+                        source={require("../images/noimage.jpg")}
+                        style={[styles.image, { height: 150 }, imageStyle]}
+                        resizeMode="cover"
+                        {...imageProps}
+                    />
+                </View>
             )
         }
         return (
-            <Image
-                source={{ uri: imageUrl }}
-                style={[styles.image, { height: imageHeight }, imageStyle]}
-                resizeMode="cover"
-            />
+            <View style={[styles.imageContainer, { height: imageHeight }, imageContainerStyle]}>
+                <Image
+                    source={{ uri: imageUrl }}
+                    style={[styles.image, { height: imageHeight }, imageStyle]}
+                    resizeMode="cover"
+                    {...imageProps}
+                />
+            </View>
         )
-    }
+    }, [loading, fail, imageHeight, imageUrl])
 
-    const renderFooter = () => {
-        if (!CustomFooter && (like || share || favorite || comment)) {
-            return (
-                <TouchableOpacity activeOpacity={1} style={[styles.actionContainer, footerContainerStyle]}>
-                    <View style={[styles.actionContainer, { width: "auto", paddingVertical: 0 }]}>
-                        {
-                            like ? (
-                                <TouchableOpacity onPress={onLikePress} activeOpacity={0.2}>
-                                    <Ionicons
-                                        name={liked ? "ios-heart" : "ios-heart-outline"}
-                                        size={iconsSize}
-                                        style={{ marginRight: 15 }}
-                                        color={!liked ? actionsColor : altActionsColor}
-                                    />
-                                </TouchableOpacity>
-                            ) : null
-                        }
-                        {
-                            comment ? (
-                                <TouchableOpacity onPress={onCommentPress} activeOpacity={0.2}>
-                                    <FontAwesome
-                                        name={commented ? "comment" : "comment-o"}
-                                        size={iconsSize - 2 > 0 ? iconsSize - 2 : 0}
-                                        style={{ marginRight: 15, marginBottom: 3 }}
-                                        color={!commented ? actionsColor : altActionsColor}
-                                    />
-                                </TouchableOpacity>
-                            ) : null
-                        }
-                        {
-                            share ? (
-                                <TouchableOpacity onPress={onSharePress} activeOpacity={0.2}>
-                                    <Ionicons
-                                        name="md-share-social-outline"
-                                        size={iconsSize}
-                                        style={{ marginRight: 15 }}
-                                        color={!shared ? actionsColor : altActionsColor}
-                                    />
-                                </TouchableOpacity>
-                            ) : null
-                        }
-                    </View>
-                    {
-                        favorite ? (
-                            <TouchableOpacity onPress={onFavoritePress} activeOpacity={0.2}>
-                                <Ionicons
-                                    name={favorited ? "bookmark" : "bookmark-outline"}
-                                    size={iconsSize - 2 > 0 ? iconsSize - 2 : 0}
-                                    color={!favorited ? actionsColor : altActionsColor}
-                                />
-                            </TouchableOpacity>
-                        ) : null
-                    }
-                </TouchableOpacity>
-            )
-        } else if (CustomFooter) {
-            return CustomFooter
-        } else {
-            return null
-        }
-    }
+    const renderFooter = useCallback(() => (
+        Footer ? Footer : null
+    ), [Footer])
 
     return (
         <TouchableOpacity
@@ -211,8 +146,8 @@ const Default = ({
         >
             {renderImage()}
             <View style={[styles.infoContainer, infoContainerStyle]}>
-                <Text style={[styles.title, titleStyle]}>{title}</Text>
-                <Text numberOfLines={3} style={[styles.subTitle, subTitleStyle]}>{subTitle}</Text>
+                <Text numberOfLines={titleNumberOfLines} style={[styles.title, titleStyle]}>{title}</Text>
+                <Text numberOfLines={descriptionNumberOfLines} style={[styles.subTitle, descriptionStyle]}>{description}</Text>
             </View>
             {renderFooter()}
         </TouchableOpacity>
