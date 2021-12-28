@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useCallback } from 'react'
 import {
     Dimensions,
     Text,
@@ -6,7 +6,9 @@ import {
     TouchableOpacity,
     ScrollView,
     Modal,
-    Platform
+    Platform,
+    View,
+    TouchableWithoutFeedback
 } from 'react-native'
 
 const { width, height } = Dimensions.get("window")
@@ -18,7 +20,6 @@ const styles = StyleSheet.create({
     container: {
         zIndex: 997,
         width: "100%",
-        maxWidth: width * 0.9,
         borderRadius: 5,
         borderColor: "grey",
         borderWidth: 1,
@@ -38,15 +39,12 @@ const styles = StyleSheet.create({
     itemsList: {
         position: "absolute",
         zIndex: 998,
-        borderRadius: 5,
         borderColor: "#959595",
         backgroundColor: "#ffffff",
         maxHeight: (height / 2) - 50,
         minHeight: 40,
     },
-    view: {
-        flex: 1,
-        backgroundColor: "rgba(0,0,0,0)",
+    shadow: {
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -54,7 +52,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 5,
     }
 })
@@ -84,13 +81,13 @@ export default DropDown = ({
     const menuContioner = useRef(null);
     const [state, setState] = useState(initState)
 
-    const measure = () => new Promise(
+    const measure = useCallback(() => new Promise(
         resolve => menuContioner.current.measureInWindow((x, y, width, height) => resolve({
             x, y, width, height
         })),
-    )
+    ), [menuContioner])
 
-    const openMenu = async () => {
+    const openMenu = useCallback(async () => {
         let position = await measure()
         let inverted = position.y - (position.height / 2) > height / 2 ? true : false
         setState(prev => {
@@ -102,10 +99,12 @@ export default DropDown = ({
                 position
             }
         })
-    }
+    }, [measure, children])
 
-    const closeMenu = (item) => {
-        setTimeout(() => { onDataChange(item) }, 0)
+    const closeMenu = useCallback((item) => {
+        if (item) {
+            onDataChange(item)
+        }
         setState(prev => {
             return {
                 ...prev,
@@ -115,9 +114,9 @@ export default DropDown = ({
                 inverted: false
             }
         })
-    }
+    }, [])
 
-    const offsetFunc = () => {
+    const offsetFunc = useCallback(() => {
         if (!state.inverted) {
             return {
                 top: state.position.y + state.position.height
@@ -127,7 +126,7 @@ export default DropDown = ({
                 bottom: height - state.position.y + 2,
             }
         }
-    }
+    }, [state.position, state.inverted])
 
     const renderMenu = () => {
         if (state.menuVisible) {
@@ -135,12 +134,10 @@ export default DropDown = ({
                 <Modal
                     visible={state.menuVisible}
                     transparent={true}
-                    onRequestClose={() => { }}
+                    onRequestClose={() => closeMenu()}
                     animationType="fade"
                 >
-                    <TouchableOpacity
-                        activeOpacity={1}
-                        style={styles.view}
+                    <TouchableWithoutFeedback
                         onPress={() => {
                             setState(prev => {
                                 return {
@@ -156,6 +153,7 @@ export default DropDown = ({
                         <ScrollView
                             style={[
                                 styles.itemsList,
+                                styles.shadow,
                                 menuStyle,
                                 {
                                     width: state.menuWidth - (children ? 30 : 0),
@@ -172,18 +170,18 @@ export default DropDown = ({
                         >
                             {
                                 data.map((item, index) => (
-                                    <TouchableOpacity
+                                    <TouchableWithoutFeedback
                                         key={index}
-                                        activeOpacity={0.6}
                                         onPress={() => closeMenu(item)}
-                                        style={[styles.itemContainer, itemStyle]}
                                     >
-                                        <Text numberOfLines={2} style={[styles.itemText, itemTextStyle]}>{typeof (item) == "string" ? item : item.label}</Text>
-                                    </TouchableOpacity>
+                                        <View style={[styles.itemContainer, itemStyle]}>
+                                            <Text numberOfLines={2} style={[styles.itemText, itemTextStyle]}>{typeof (item) == "string" ? item : item.label}</Text>
+                                        </View>
+                                    </TouchableWithoutFeedback>
                                 ))
                             }
                         </ScrollView>
-                    </TouchableOpacity>
+                    </TouchableWithoutFeedback>
                 </Modal>
             )
         } else {
