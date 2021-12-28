@@ -1,4 +1,4 @@
-import React, { useMemo } from "react"
+import React, { useMemo, forwardRef } from "react"
 import {
     FlatList as List,
     StyleSheet,
@@ -15,7 +15,7 @@ const DefaultEmpty = ({ text }) => {
     )
 }
 
-const Test = ({
+export default FlatList = forwardRef(({
     data = [],
     loading = false,
     onRefresh = () => { },
@@ -26,7 +26,7 @@ const Test = ({
     emptyComponenText = "There is nothing here",
     ListEmptyComponent = <DefaultEmpty text={emptyComponenText} />,
     ...props
-}) => {
+}, ref) => {
 
     const refreshControl = useMemo(() => {
         if (useRefreshControl) {
@@ -49,6 +49,7 @@ const Test = ({
 
     return (
         <List
+            ref={ref}
             data={data}
             style={[styles.container, style]}
             contentContainerStyle={[
@@ -61,7 +62,8 @@ const Test = ({
             {...props}
         />
     )
-}
+})
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -87,5 +89,3 @@ const styles = StyleSheet.create({
         color: '#ccc'
     }
 })
-
-export default Test
