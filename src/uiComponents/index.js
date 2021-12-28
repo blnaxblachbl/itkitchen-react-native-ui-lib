@@ -1,5 +1,5 @@
 import Switch from './switch'
-import AnimatedHeaderList from './animatedHeaderScreen'
+// import AnimatedHeaderList from './animatedHeaderScreen'
 import TextInput from './textInput'
 import Button from './button'
 import RadioButton from './radioButton'
@@ -11,7 +11,6 @@ import Badge from './badge'
 
 export default {
     Switch,
-    AnimatedHeaderList,
     TextInput,
     Button,
     RadioButton,

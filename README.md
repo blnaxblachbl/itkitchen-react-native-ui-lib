@@ -34,14 +34,15 @@ const [switchState, setSwitchState] = useState(false)
 
 return (
     <View style={styles.container}>
+        <UI.Switch />
         <UI.Switch
-            activeOpacity={0.6}
             textStyle={{
                 fontSize: 20
             }}
             containderStyle={{
                 width: "50%",
-                height: 50
+                height: 50,
+                marginTop: 15
             }}
             circleStyle={{
                 width: "50%",
@@ -55,6 +56,7 @@ return (
             enabledBackgroundColor="#ccc"
             disabledBackgroundColor="#ccc"
             onChangeState={switchState => setSwitchState(switchState)}
+            initValue={true}
         />
     </View>
 )
@@ -70,7 +72,7 @@ return (
 Name | Description | Default | Type
 ------|-------------|----------|-----------
 activeOpacity | opacity level on press | 0.6 | from 0 to 1
-initPosition | initial position | false | bool
+initValue | initial position | false | bool
 textStyle | switch text style | undefined | style
 containderStyle | switch container style | undefined | style
 circleStyle | switch circle style | undefined | style
@@ -83,9 +85,9 @@ disabledBackgroundColor | switch background color when it is off | '#ccc' | stri
 onChangeState | callback when switch is clicked| (value) => {callback(value)} | func
 
 
-- **_AnimatedHeaderList_** - is UI component with animated header. This component based on FlatList and support all props of it. 
+- **_AnimatedHeaderList_** - is UI component with animated header. This component based on FlatList and support all props of it. //_Removed. Maybe in the next update we will refactor and refund it._
 
-```javascript
+<!-- ```javascript
 //...
 import { Functions, UI } from 'itkitchen-react-native-ui-lib'
 
@@ -175,7 +177,7 @@ headerMinHeight | header min height | 55 | number
 headerComponentsMinOpacity | header components can change opacity on animate. If you don't wont use opacity set it to 1 | 0 | from 0  to 1
 renderHeader | callback to render header. Offset parameter is scroll offset value. Also offset is animated value, you can use interpolate to it | (offset) => {return(Component)} | func
 renderItem | callback to render item | ({ item, index }) => {return(Component)} | func
-and all FlatList component props, without onScroll |  |  | any
+and all FlatList component props, without onScroll |  |  | any -->
 
 - **_TextInput_** - is UI component with animated lable of text input. 
 

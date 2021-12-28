@@ -1,26 +1,25 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import {
-    TouchableOpacity,
     LayoutAnimation,
     Platform,
     UIManager,
     StyleSheet,
     View,
-    Text
+    Text,
+    TouchableWithoutFeedback
 } from 'react-native'
 
 const styles = StyleSheet.create({
     switchContainerStyle: {
-        width: 170,
-        height: 35,
+        width: 60,
         borderRadius: 25,
-        padding: 5,
+        padding: 4,
         justifyContent: "center"
     },
     switchCircleStyle: {
-        width: 85,
-        height: 30,
-        borderRadius: 15,
+        width: 25,
+        height: 25,
+        borderRadius: 12,
         backgroundColor: 'white', // rgb(102,134,205)
         alignItems: "center",
         justifyContent: "center"
@@ -32,105 +31,66 @@ const styles = StyleSheet.create({
     },
 })
 
-const initSate = {
-    active: false,
-    switchContainerAlign: "flex-start",
-    switchCircleColor: "red",
-    swithcOnAnimation: false,
-    backgroundColor: "#ccc",
-    circleText: "Off"
-}
-
 export default Switch = ({
     containderStyle,
     circleStyle,
     textStyle,
-    activeOpacity,
-    enabledCircleColor,
-    disabledCircleColor,
-    enabledBackgroundColor,
-    disabledBackgroundColor,
-    enabledText,
-    disabledText,
-    onChangeState,
-    initPosition
+    enabledCircleColor = '#fff',
+    disabledCircleColor = '#fff',
+    enabledBackgroundColor = "#2196F3",
+    disabledBackgroundColor = "#ccc",
+    enabledText = "",
+    disabledText = "",
+    onChangeState = () => { },
+    initValue = false
 }) => {
-
-    const [state, setState] = useState(initSate)
+    const [active, setActive] = useState(initValue)
 
     useEffect(() => {
         if (Platform.OS === 'android') {
             UIManager.setLayoutAnimationEnabledExperimental(true)
         }
-        if (initPosition) {
-            setState({
-                active: true,
-                switchContainerAlign: "flex-end",
-                switchCircleColor: enabledCircleColor ? enabledCircleColor : "#4DC861",
-                backgroundColor: enabledBackgroundColor ? enabledBackgroundColor : "#ccc",
-                circleText: enabledText ? enabledText : "On"
-            })
-        } else {
-            setState({
-                active: false,
-                switchContainerAlign: "flex-start",
-                switchCircleColor: disabledCircleColor ? disabledCircleColor : "red",
-                backgroundColor: disabledBackgroundColor ? disabledBackgroundColor : "#ccc",
-                circleText: disabledText ? disabledText : "Off"
-            })
-        }
     }, [])
 
     const toggleSwitch = () => {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
-        if (state.active) {
-            setState({
-                active: false,
-                switchContainerAlign: "flex-start",
-                switchCircleColor: disabledCircleColor ? disabledCircleColor : "red",
-                swithcOnAnimation: true,
-                backgroundColor: disabledBackgroundColor ? disabledBackgroundColor : "#ccc",
-                circleText: disabledText ? disabledText : "Off"
-            })
-        } else {
-            setState({
-                active: true,
-                switchContainerAlign: "flex-end",
-                switchCircleColor: enabledCircleColor ? enabledCircleColor : "#4DC861",
-                swithcOnAnimation: true,
-                backgroundColor: enabledBackgroundColor ? enabledBackgroundColor : "#ccc",
-                circleText: enabledText ? enabledText : "On"
-            })
-        }
-        if (onChangeState) {
-            onChangeState(state.active)
-        }
+        LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+        setActive(!active)
+        onChangeState(!active)
     }
 
+    const switchContainerAlign = useMemo(() => !active ? "flex-start" : 'flex-end', [active])
+    const backgroundColor = useMemo(() => active ? enabledBackgroundColor : disabledBackgroundColor, [active])
+    const switchCircleColor = useMemo(() => active ? enabledCircleColor : disabledCircleColor)
+    const circleText = useMemo(() => active ? enabledText : disabledText)
+
     return (
-        <TouchableOpacity
-            activeOpacity={activeOpacity ? activeOpacity : 0.9}
+        <TouchableWithoutFeedback
             onPress={toggleSwitch}
-            style={[
-                styles.switchContainerStyle,
-                {
-                    alignItems: state.switchContainerAlign,
-                    backgroundColor: state.backgroundColor
-                },
-                containderStyle
-            ]}
         >
             <View
                 style={[
-                    styles.switchCircleStyle,
+                    styles.switchContainerStyle,
                     {
-                        backgroundColor: state.switchCircleColor
+                        alignItems: switchContainerAlign,
+                        backgroundColor
                     },
-                    circleStyle
+                    containderStyle
                 ]}
             >
-                <Text style={[styles.switchTextStyle, textStyle]}>{state.circleText}</Text>
+                <View
+                    style={[
+                        styles.switchCircleStyle,
+                        {
+                            backgroundColor: switchCircleColor
+                        },
+                        circleStyle
+                    ]}
+                >
+                    {circleText ? (
+                        <Text style={[styles.switchTextStyle, textStyle]}>{circleText}</Text>
+                    ) : null}
+                </View>
             </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
     )
 }
