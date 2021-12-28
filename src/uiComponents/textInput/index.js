@@ -10,7 +10,7 @@ import {
 import List from './list'
 import { normalize } from '../../functions/normalize'
 
-const TextInputComponent = forwardRef(({
+export default  TextInputComponent = forwardRef(({
     value,
     placeholder,
     style,
@@ -223,5 +223,3 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     }
 })
-
-export default TextInputComponent
