@@ -573,6 +573,57 @@ titleStyle | style of card title | {} | style
 descriptionStyle | style of card subtitle | {} | style
 imageBackgroundProps | ImageBackground component props |  |  | any
 
+- **_FlatList_** - is modified React-Native FlatList component.
+
+```javascript
+import { Functions, UI } from 'itkitchen-react-native-ui-lib'
+
+const { width } = Dimensions.get("window")
+
+const arr = new Array(10).fill({
+    imageUrl: 'https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSsb3dnwW7TWK8zRGaCQ_ThqeLRWTZKXsWAL5z6rI_9UAwM0NqH',
+    title: "Cat",
+    description: "Sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping sleeping"
+})
+const loading = true
+
+//...
+
+return(
+    <UI.FlatList
+        data={arr}
+        renderItem={({ item }) => (
+            <View style={{ width, paddingHorizontal: 15, paddingTop: 15 }}>
+                <UI.Card
+                    title={item.title}
+                    description={item.description}
+                    imageUrl={item.imageUrl}
+                />
+            </View>
+        )}
+        loading={loading}
+        useRefreshControl={false}
+        LoadinComponent={
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+                <ActivityIndicator animating size={"large"} />
+            </View>
+        }
+    />
+)
+```
+<img width="35%" src="./gifs/flat-list.gif"/>
+
+#### Props
+Name | Description | Default | Type
+------|-------------|----------|-----------
+loading | if this property is true refresh controll or LoadingConponent is showing up | false | bool
+onRefresh | RefreshControl onRefresh property | () => {} | function
+LoadinComponent | component that will be showing up instead of ListEmptyComponent if loading true | null | React-Native component
+useRefreshControl | if true used RefreshControll component to FlatList | true | bool
+emptyComponenText | Default ListEmptyComponent text | "There is nothing here" | string
+and all FlatList component props |  |  | any
+
+
 ### Functions
 - **_normalize_** - is a function which normalizes the font size of the text relative to the screen size.
 
