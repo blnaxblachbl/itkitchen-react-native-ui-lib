@@ -2,18 +2,16 @@ import React from 'react'
 import {
     View,
     StyleSheet,
-    Dimensions,
     Text,
     TouchableOpacity
 } from 'react-native'
+import { normalize } from '../../functions/normalize'
 
 const styles = StyleSheet.create({
     container: {
-        flexWrap: "wrap",
+        flexWrap: "nowrap",
         flexDirection: "row",
-        alignItems: "center",
-        width: "90%",
-        marginTop: 15
+        width: "100%"
     },
     radioButton: {
         width: 20,
@@ -23,11 +21,14 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         borderWidth: 1,
         borderColor: '#494043',
-        marginRight: 10
+        marginRight: 10,
+        marginTop: normalize(5),
     },
     radioText: {
-        fontSize: 18,
+        flex: 1,
+        fontSize: normalize(14),
         color: "#494043",
+        textAlignVertical: 'top'
     },
     radioCircle: {
         width: 12,

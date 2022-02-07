@@ -7,6 +7,7 @@ import Avatar from './avatar'
 import Badge from './badge'
 import Card from './card'
 import Flatlist from './flatlist'
+import Image from './image'
 
 export default {
     Switch,
@@ -17,5 +18,6 @@ export default {
     Badge,
     Avatar,
     Card,
-    Flatlist
+    Flatlist,
+    Image
 }
