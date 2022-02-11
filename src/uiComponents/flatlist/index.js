@@ -80,8 +80,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 15,
-        width: '100%',
-        backgroundColor: 'transparent'
+        width: '100%'
     },
     defaultEmptyText: {
         fontSize: 14,
